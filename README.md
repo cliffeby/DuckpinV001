@@ -1,9 +1,15 @@
 # DuckpinV001
 Project Documentation
-Bio
-Preamble
+### _About Me_
+I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a crtl-c/crlt-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Roch app, I will document some of the "not so sample" issues and questions that arise.   
+
+This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document will be updated as I learn more about the MEAN Stack.
+ 
+ Cliff Eby - 2018
+
+### _Preamble_
 As a hobbyist with a life-long interest in what makes things work, I look for projects that are more than demonstrations of “cool” technology.  For years, I wanted an Arduino or Raspberry Pi (RPI) but avoided the “technical investment” because I wanted to do more than turn on LEDs.  Similarly, with IOT I wanted to stream and store more than local weather data.    
-The Project 
+### _Project Introduction_ 
 The pinsetters at Congressional Country Club are ancient.  They are controlled by mechanical relays in a Gold-Ruberg artform.  When I bring guests to the Club, the pinsetters are a must stop and I can spend at least 15 minutes watching them perform.  Each lane headboard shown below has a display of pin numbers, but they are not and were never functional.  Could I use a computer to light the numbers?  Could I track the ball’s location, angle, and speed and measure the result?  Did I find a use for a RPI and IOT in one project?
 Background
 	Duckpins - Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).
