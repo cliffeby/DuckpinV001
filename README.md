@@ -15,7 +15,8 @@ The pinsetters at Congressional Country Club are ancient.  They are controlled b
 #### Duckpins #
 Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).
 	The Sherman automatic pinsetter was developed in 1953 and the company ceased operation in 1973.  Existing operators are forced to cannibalize pinsetter parts from the bowling houses that close, often buying the machines and putting them into storage to use for spare parts. The lack of new pinsetters is a significant cause of the decline of duckpin bowling, as it thwarted the growth of new centers.
-	#### CCC Duckpins # – There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by Ken Palmer , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
+#### CCC Duckpins #
+There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by Ken Palmer , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
 ### _Player/User Requests_
 In addition to lighting the Lucite numbers, there was a request to indicate the number of balls used during each frame.  If the ball can be reliably detected, a seven-segment LED display can be controlled by the RPI to indicate state.
 User interest or requirements for the ball-pin interaction data is not known.  There is no known Moneyball analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV format in the Cloud is likely a good starting point.
@@ -57,7 +58,7 @@ Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCo
 I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y
 Appendix A contains hints on the image setup and issues that I encountered.
 
-Where to start?
+### _Where to start?_
 Several online video tutorials  show an RPI with a standard 1080p camera module able to achieve multiple (maybe over 40) frames per second video processing throughput.  Relays connected to the GPIO pins should be able to switch/light 10 led bulbs using an external 12vdc power supply.  Azure and AWS have RPI SDKs.  It seems like all the pieces are there but can it all come together to be more than a “classroom” or “demo” project.
 RPIs use a Linux variant, Debian, operating system.  As a DOS/Windows guy, it would offer some challenges, but nothing a search couldn’t solve.  Most RPI video processing is done with Open Computer Vision (OpenCV) which has Python and C++ SDKs.  With no background in either language, I investigated C++ because it was reported to be faster.  After a couple of tries, I moved to Python because:
 -	it felt more like JavaScript or the Fortran that I had once used
@@ -79,7 +80,7 @@ Since my final installation was expected to be an RPI without a monitor or input
 Next was the use of GPIO pins on the RPI.  I started with the obligatory single blinking led on a breadboard powered by the RPI and quickly moved on connecting the GPIO pins to SainSmart 8 and 4-Channel Relay Modules.  Like my learning Python syntax and OpenCV, I created some simple programs to get results.  
 Finally, I turned to IoT to send a store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
 So far, so good.  On to the design process.
-Hardware Design
+### Hardware Design #
 I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules (Figure 2). Restrictions were:
 1.	Access to the RPI’s HDMI, USB, power, and GPIO connections
 2.	RPI – piCamera:  Standard piCamera ribbon cable is six inches and the piCamera also needs a mount.
@@ -104,11 +105,10 @@ Data package ready	Send IoT data to Cloud
 
 OpenCV typically uses a mask approach to detect motion or changes between two frames of video.  The first frame is subtracted from the second and differences are highlighted.  This approach works well for frame by frame video detecting a ball moving toward the pins and both deadwood and reset pinsetter activities.  To detect presence of a specific pin, individual pin pattern matching was attempted but found to offer poor results.  Due to varying distance from the camera the pins were different sizes; back pins were obscured; and reflections often created false positives.   The pin tops were tried to eliminate the size, reflection, and obscurity issues, but matching was inconsistent.  Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often cropped to improve speed and edge conditions.
  
-   
 
 Since pins are either up or down, the 10-pin configuration was a value between 0 and 1023 (10 exp 2 = 1024).  Pin 1 (index [0]) has an up value of 512, Pin 2 (index [1]) an up value of 256… and Pin 10 (index [9]) an up value of 1.  The pin configuration number is simply the sum of the ten values or the binary string ranging from b1111111111 equal to 1023 and b0000000000 = 0.
 There are several triggers that can be used to recognize a changed state.  Since it is hoped that the camera can capture at least one frame as the ball moves through the pins and pins often fall seconds after the ball has passed through the pins, a completed pin configuration state must be recognized.  A bowler’s deadwood or reset action creates this completion notice, but if reset or deadwood is not needed, the subsequent ball’s presence or timers could create a completed status.
-Early Considerations and Limitations
+### _Early Considerations and Limitations_ #
 V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 framerate.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.   
 #	Resolution	Aspect Ratio	Framerate	Video	Image	FoV	Binning
 1	1920x1080	16:9	0.1-30fps	x	 	Partial	None
@@ -125,8 +125,9 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 3.	Placing the IO processing of the video frame in a separate thread did not seem to help real-time processing.  It appears that the piCamera buffering feature uses threading.  Tools and knowledge on improving OpenCV throughput is ongoing.  A 2015 blog by Adrian Rosebrock  offers a utility to easily separate the piCamera IO thread.
 4.	Where video was saved in a buffer during processing for pin and ball recognition, the ball was present in three to five frames.  That same code was unable to reliably capture a single frame with a ball in real time.  This reinforces the conclusion that by the time the code finished other calculations in the loop, the frames which contained the ball were no longer present.
 
-Pseudocode and why
-Setup – My initial exploration of Python on an RPI showed the value of functions and the need for several initial settings.  Early efforts focused on:
+### _Pseudocode and why_
+#### Setup
+My initial exploration of Python on an RPI showed the value of functions and the need for several initial settings.  Early efforts focused on:
 -	Camera settings
 o	Resolution, framerate and field of view relationships 
 o	Rotation
@@ -167,7 +168,7 @@ o	LightLeds()
 	Loop through X and GPIO pin array index [X]
 •	If 1, turn GPIO to HIGH
 •	If 0, turn GPIO to LOW
-Find Standing Pins
+#### Find Standing Pins
 -	findPins()
 o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
 	Create a numpy array for the RGB high and low values
