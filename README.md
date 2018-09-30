@@ -19,7 +19,9 @@ Regular duckpin bowling is popular in the northeastern and mid-Atlantic United S
 There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by Ken Palmer , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
 ### _Player/User Requests_
 In addition to lighting the Lucite numbers, there was a request to indicate the number of balls used during each frame.  If the ball can be reliably detected, a seven-segment LED display can be controlled by the RPI to indicate state.
+
 User interest or requirements for the ball-pin interaction data is not known.  There is no known Moneyball analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV format in the Cloud is likely a good starting point.
+
 Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
 ### _Tools_
 #### Hardware #
@@ -117,7 +119,7 @@ V2 of the piCamera module has seven default resolution/framerate modes and speci
 4	1640x1232	4:3	0.1-40fps	x	 	Full	2x2
 5	1640x922	16:9	0.1-40fps	x	 	Full	2x2
 6	1280x720	16:9	40-90fps	x	 	Partial	2x2
-7	640x480	4:3	40-90fps	x	 	Partial	2x2
+7	640x480		4:3	40-90fps	x	 	Partial	2x2
                                                      
 Use of lower resolution, threading, and buffering with post-processing were tried.  Also, a laser tripwire was tried to count the number of balls thrown.  Several insights were obtained from this exploration.
 1.	I was often able to capture video at the framerates noted above and my code worked well when post processing these frame by frame.  When trying to capture movement in real time, the code failed to find movement.  It appears that the camera captures the frame, but if the code has not requested it with a frame in camera.capture_continuous  command, the frame is destroyed. 
