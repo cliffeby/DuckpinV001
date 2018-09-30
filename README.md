@@ -22,7 +22,7 @@ In addition to lighting the Lucite numbers, there was a request to indicate the 
 User interest or requirements for the ball-pin interaction data is not known.  There is no known Moneyball analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV format in the Cloud is likely a good starting point.
 Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
 ### _Tools_
-	#### Hardware #
+#### Hardware #
 Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
 Camera Video Module 5MP Webcam 1080p 720p $14
 12v 30a Dc Universal Regulated Switching Power Supply 360w
@@ -31,7 +31,7 @@ DWVO [10 Pack] Superbright 1156 LED Light Bulb
 SainSmart 8 and 4-Channel Relay Modules
 5” 7-segment LED for ball counts	
 
-	#### Software #
+#### Software #
 Raspbian GNU/Linux 8 (Jessie)
 Python 3.4.2
 Node v9.4.0
