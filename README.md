@@ -1,5 +1,5 @@
-# DuckpinV001
-Project Documentation
+# Duckpins -Project Documentation
+
 ### _About Me_
 I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a crtl-c/crlt-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Roch app, I will document some of the "not so sample" issues and questions that arise.   
 
@@ -12,15 +12,15 @@ As a hobbyist with a life-long interest in what makes things work, I look for pr
 ### _Project Introduction_ 
 The pinsetters at Congressional Country Club are ancient.  They are controlled by mechanical relays in a Gold-Ruberg artform.  When I bring guests to the Club, the pinsetters are a must stop and I can spend at least 15 minutes watching them perform.  Each lane headboard shown below has a display of pin numbers, but they are not and were never functional.  Could I use a computer to light the numbers?  Could I track the ball’s location, angle, and speed and measure the result?  Did I find a use for a RPI and IOT in one project?
 Background
-	Duckpins - Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).
+	#### Duckpins # - Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).
 	The Sherman automatic pinsetter was developed in 1953 and the company ceased operation in 1973.  Existing operators are forced to cannibalize pinsetter parts from the bowling houses that close, often buying the machines and putting them into storage to use for spare parts. The lack of new pinsetters is a significant cause of the decline of duckpin bowling, as it thwarted the growth of new centers.
-	CCC Duckpins – There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by Ken Palmer , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
-Player/User Requests
+	#### CCC Duckpins # – There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by Ken Palmer , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
+### _Player/User Requests_
 In addition to lighting the Lucite numbers, there was a request to indicate the number of balls used during each frame.  If the ball can be reliably detected, a seven-segment LED display can be controlled by the RPI to indicate state.
 User interest or requirements for the ball-pin interaction data is not known.  There is no known Moneyball analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV format in the Cloud is likely a good starting point.
 Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
-Tools
-	Hardware
+### _Tools_
+	#### Hardware #
 Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
 Camera Video Module 5MP Webcam 1080p 720p $14
 12v 30a Dc Universal Regulated Switching Power Supply 360w
@@ -29,7 +29,7 @@ DWVO [10 Pack] Superbright 1156 LED Light Bulb
 SainSmart 8 and 4-Channel Relay Modules
 5” 7-segment LED for ball counts	
 
-	Software
+	#### Software #
 Raspbian GNU/Linux 8 (Jessie)
 Python 3.4.2
 Node v9.4.0
@@ -51,7 +51,7 @@ Development
 Production 
 -	TBD
 
-The RPI image and how
+### _The RPI image and how_
 Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing the RPI in a case) and a backup would have saved a lot of time.
 I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y
 Appendix A contains hints on the image setup and issues that I encountered.
