@@ -11,6 +11,10 @@ This GitHub page is one of several  blogs on my efforts to get beyond HW.  I exp
 As a hobbyist with a life-long interest in what makes things work, I look for projects that are more than demonstrations of “cool” technology.  For years, I wanted an Arduino or Raspberry Pi (RPI) but avoided the “technical investment” because I wanted to do more than turn on LEDs.  Similarly, with IOT I wanted to stream and store more than local weather data.    
 ### _Project Introduction_ 
 The pinsetters at Congressional Country Club are ancient.  They are controlled by mechanical relays in a Gold-Ruberg artform.  When I bring guests to the Club, the pinsetters are a must stop and I can spend at least 15 minutes watching them perform.  Each lane headboard shown below has a display of pin numbers, but they are not and were never functional.  Could I use a computer to light the numbers?  Could I track the ball’s location, angle, and speed and measure the result?  Did I find a use for a RPI and IOT in one project?
+
+![image](https://user-images.githubusercontent.com/1431998/46451141-c32c8f80-c762-11e8-9c70-25089f44a9af.png)
+![image](https://user-images.githubusercontent.com/1431998/46451161-cfb0e800-c762-11e8-844d-49aa993a9928.png)
+
 ### _Background_
 #### Duckpins #
 Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).
@@ -175,6 +179,7 @@ o	LightLeds()
 o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
 	Create a numpy array for the RGB high and low values
 	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
+![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
 o	Create a red mask using the previously described crops and the cv2.inRange function
 o	Apply the mask to the video stream image using cv2.bitwise_and
 o	For each pin location, defined by a specific cropped range, measure the color level in the range:
