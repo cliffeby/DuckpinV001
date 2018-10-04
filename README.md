@@ -207,7 +207,8 @@ o	Reset()
 	Else:
 •	Return False
 
--	Send IoT messages – This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
+#### Send IoT messages
+This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
 o	Initialize the iot client
 o	Save captured video to a RAM file
 o	Format the filename 
@@ -254,8 +255,9 @@ o	Import the Azure table storage to Excel
 o	Using Excel, create a quick template to analyze the relative speed of the ball and the amount of lateral movement as it approaches the pins.
 o	More data are needed to determine the accuracy of the camera and centroid calculation at various speeds.  While the camera pixel is about 1/1300 of 4 feet, it is not a certainty that the centroid calculation offers this accuracy.
 
-In Production
-Headless:  In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading Five Ways To Run a Program On Your Raspberry Pi At Startup , I chose to use systemd  files.  If you use absolute paths to locate your files, the technique works well.
+### In Production
+#### Headless:
+In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading Five Ways To Run a Program On Your Raspberry Pi At Startup , I chose to use systemd  files.  If you use absolute paths to locate your files, the technique works well.
 The commands:
 sudo systemctl daemon-reload
 sudo systemctl enable sample.service
@@ -271,22 +273,26 @@ sudo mount -t tmpfs -o size=100m tmpfs /ram
 Add this line to /etc/fstab.  It mounts a folder to RAM, where 777 specifies file permissions
 tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
 Logging:  Programs started by systemd do not have a console for printing.  Python’s import logging is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
-Code Repo  Duckpin2 nn GitHub  - pull requests accepted.
-Challenges
+### Code Repo  Duckpin2 nn GitHub  - pull requests accepted.
+### Challenges
 I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.  
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
-Results
+### Results
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
 The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed at https://1drv.ms/u/s!AgsEoWikEEW_kfkXsurFeKnv1td9pQ
 The text below is output from the post processing effort of a single video to be entered in an Azure table.
 Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', 'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', 'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'} 
- 
+
+![image](https://user-images.githubusercontent.com/1431998/46447199-88206100-c74e-11e8-8f5a-f60b725ebf02.png)
+![image](https://user-images.githubusercontent.com/1431998/46447210-91113280-c74e-11e8-8108-1a7fa60ebb48.png)
+![image](https://user-images.githubusercontent.com/1431998/46447214-966e7d00-c74e-11e8-88c9-55309c845ebe.png)
+![image](https://user-images.githubusercontent.com/1431998/46447220-9b333100-c74e-11e8-9a6c-e841205d0d31.png)
  
  
 An Excel spreadsheet of 40+ processed videos can be found at https://1drv.ms/f/s!AgsEoWikEEW_kbUhAIBbAnb66hNgvA
 
 
-Resources
+### Resources
 
 Message Pack vs Apache AVRO vs CSV
 IOT to BLOB to PowerBi should just work.
@@ -305,7 +311,7 @@ sudo apt-get install gnome-schedule
 
 Duck8500
  
-Appendix A – RPI Image setup
+## Appendix A – RPI Image setup
 1.	RPI Basics
 a.	Most SDCards purchased with a RPI come with Raspbian installed.  Suggest that you update it first using the apt-get command above
 b.	To install Remote Desktop - $ sudo apt-get install xrdp
@@ -379,7 +385,7 @@ vi.	Supporting Links
 2.	Package releases : https://packagecloud.io/headmelted/codebuilds
 3.	GPG key from : https://packagecloud.io/headmelted/codebuilds/gpgkey
  
-Appendix A   GitHub
+## Appendix B   GitHub
 1.	Create a GitHub repo
 2.	Create a folder on one of the local machines
 a.	Git init
