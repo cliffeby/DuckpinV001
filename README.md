@@ -317,9 +317,12 @@ I was unable to get framerates high enough to capture two clear observations of 
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
 ### Results
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
-The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed at https://1drv.ms/u/s!AgsEoWikEEW_kfkXsurFeKnv1td9pQ
+
+The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed at [video](https://1drv.ms/u/s!AgsEoWikEEW_kfkXsurFeKnv1td9pQ)
+
 The text below is output from the post processing effort of a single video to be entered in an Azure table.
-Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', 'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', 'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'} 
+
+>Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', >'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'} 
 
 ![image](https://user-images.githubusercontent.com/1431998/46447199-88206100-c74e-11e8-8f5a-f60b725ebf02.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447210-91113280-c74e-11e8-8108-1a7fa60ebb48.png)
@@ -327,7 +330,7 @@ Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1
 ![image](https://user-images.githubusercontent.com/1431998/46447220-9b333100-c74e-11e8-9a6c-e841205d0d31.png)
  
  
-An Excel spreadsheet of 40+ processed videos can be found at https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel
+An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel)
 
 
 ### Resources
