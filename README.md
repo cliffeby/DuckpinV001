@@ -86,10 +86,10 @@ Equally difficult for me was version control and keeping everything synched.  Di
 
 Along the way, I added the ability to use Remote Desktop and SSH from my desktop to use the RPI or access the RPI’s SDCard storage.  The only drawback is that neither remote process provides direct camera images on the remote desktop.  As shown here, OpenCV using Remote Desktop and the waitKey command to break the loop will generate an image on the remote.
 import cv2
-`img=cv2.imread('C:/Python/03323_HD.jpg')
+```img=cv2.imread('C:/Python/03323_HD.jpg')
 cv2.imshow('Window',img)
 cv2.waitKey(0)
-cv2.destroyAllWindows()`
+cv2.destroyAllWindows()```
 
 Since my final installation was expected to be an RPI without a monitor or input devices, I needed to learn remoting resources and limitations.  Argv from the sys import was one of those concepts.  It allows you to pass parameters from a command line execution.  Again, lots of online tutorials on this.
 Next was the use of GPIO pins on the RPI.  I started with the obligatory single blinking led on a breadboard powered by the RPI and quickly moved on connecting the GPIO pins to SainSmart 8 and 4-Channel Relay Modules.  Like my learning Python syntax and OpenCV, I created some simple programs to get results.  
