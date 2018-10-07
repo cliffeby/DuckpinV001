@@ -86,14 +86,19 @@ Equally difficult for me was version control and keeping everything synched.  Di
 
 Along the way, I added the ability to use Remote Desktop and SSH from my desktop to use the RPI or access the RPI’s SDCard storage.  The only drawback is that neither remote process provides direct camera images on the remote desktop.  As shown here, OpenCV using Remote Desktop and the waitKey command to break the loop will generate an image on the remote.
 import cv2
-```img=cv2.imread('C:/Python/03323_HD.jpg')
+```
+img=cv2.imread('C:/Python/03323_HD.jpg')
 cv2.imshow('Window',img)
 cv2.waitKey(0)
-cv2.destroyAllWindows()```
+cv2.destroyAllWindows()
+```
 
 Since my final installation was expected to be an RPI without a monitor or input devices, I needed to learn remoting resources and limitations.  Argv from the sys import was one of those concepts.  It allows you to pass parameters from a command line execution.  Again, lots of online tutorials on this.
+
 Next was the use of GPIO pins on the RPI.  I started with the obligatory single blinking led on a breadboard powered by the RPI and quickly moved on connecting the GPIO pins to SainSmart 8 and 4-Channel Relay Modules.  Like my learning Python syntax and OpenCV, I created some simple programs to get results.  
+
 Finally, I turned to IoT to send a store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
+
 So far, so good.  On to the design process.
 ### Hardware Design #
 I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules (Figure 2). Restrictions were:
@@ -102,21 +107,26 @@ I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules
 3.	RPI – relays:  Standard GPIO female to female pin connectors are six inches.
 4.	Since I had no idea where the optimum location or angle for the camera was, I first choose a tripod for the piCamera mount.  After some experimentation, a 24” ribbon cable and an angled camera mount allowed me to permanently fix the piCamera on the wood channel.
 5.	I wanted space for the power supply to keep everything portable.
+
 Reflectors for the bulbs to light the Lucite numbers were long since destroyed and unavailable.  Using a 4” and 2 3/8” hole saw, I created ¼” plywood flanges and cut the tops off 12oz. soda cans for the reflectors (Figure 3). A washer was epoxied to the back of the can to accept the bulb holder.
  
 Two led bulb forms were considered.  A five-watt equivalent, led T10 wedge bulbs and connectors were inexpensive and produced subtle light.  The 15-watt equivalent, led 1156 base, also inexpensive, but was overpowering and washed out the Lucite number.  Both bulbs offered various colors if desired.  Beware, led bulbs have polarity, and the T10 wedge is interchangeable.  No harm if in backwards, it just doesn’t light.
+
 Last, a 12-pin connector was considered for ease in removing the RPI and relays from the 10 led bulbs.  Making the 20+ crimps seemed tedious and the connector remains on the TODO list.
-Software Design
+### Software Design
 Duckpin bowling is unique in that the player is allowed three balls in each frame to knock down the 10 pins.  Unlike 10-pin bowling where the pinsetter is automatic after each thrown ball, duckpins requires the user to clear any deadwood that may remain on the alley.  Clearing deadwood is optional as it is often not needed. Also, manually initiated in duckpins is the reset all 10 pins.
+
 The headboard that displays the Lucite pin numbers is about six feet from pin #1 and the camera is mounted on its back facing the pins. It is a perfect location to view the deadwood and reset arm, the pinsetter motion, the ball before hitting the pins, and the pins that remain standing.
+
 In general, the software needs to recognize several states, capture results, light the led bulbs, and send IoT messages.
 
-State	Action
-Ball has entered the field of view	Save video, capture location and repeat until absent
-Deadwood or reset active	Stop pin and ball capture
-None of the above	Check for pins standing; light led bulbs
-Pins stopped falling	Record pin configuration
-Data package ready	Send IoT data to Cloud
+| State | Action |
+--- | ---
+Ball has entered the field of view |	Save video, capture location and repeat until absent
+Deadwood or reset active |	Stop pin and ball capture
+None of the above |	Check for pins standing; light led bulbs
+Pins stopped falling |	Record pin configuration
+Data package ready |	Send IoT data to Cloud
 
 OpenCV typically uses a mask approach to detect motion or changes between two frames of video.  The first frame is subtracted from the second and differences are highlighted.  This approach works well for frame by frame video detecting a ball moving toward the pins and both deadwood and reset pinsetter activities.  To detect presence of a specific pin, individual pin pattern matching was attempted but found to offer poor results.  Due to varying distance from the camera the pins were different sizes; back pins were obscured; and reflections often created false positives.   The pin tops were tried to eliminate the size, reflection, and obscurity issues, but matching was inconsistent.  Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often cropped to improve speed and edge conditions.
  
