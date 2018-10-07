@@ -19,8 +19,9 @@ The pinsetters at Congressional Country Club are ancient.  They are controlled b
 
 ### _Background_
 #### Duckpins #
-Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).
-	The Sherman automatic pinsetter was developed in 1953 and the company ceased operation in 1973.  Existing operators are forced to cannibalize pinsetter parts from the bowling houses that close, often buying the machines and putting them into storage to use for spare parts. The lack of new pinsetters is a significant cause of the decline of duckpin bowling, as it thwarted the growth of new centers.
+Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).	
+
+The Sherman automatic pinsetter was developed in 1953 and the company ceased operation in 1973.  Existing operators are forced to cannibalize pinsetter parts from the bowling houses that close, often buying the machines and putting them into storage to use for spare parts. The lack of new pinsetters is a significant cause of the decline of duckpin bowling.
 #### CCC Duckpins #
 There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by [Ken Palmer](http://www.dpbatour.com/profile_palmer-kenny.htm) , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
 ### _Player/User Requests_
@@ -31,13 +32,13 @@ User interest or requirements for the ball-pin interaction data is not known.  T
 Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
 ### _Tools_
 #### Hardware #
-Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
-Camera Video Module 5MP Webcam 1080p 720p $14
-12v 30a Dc Universal Regulated Switching Power Supply 360w
-DWVO [10 Pack] Superbright 1156 LED Light Bulb
-1156 BA15s LED Light Bulb Socket Holder
-SainSmart 8 and 4-Channel Relay Modules
-5” 7-segment LED for ball counts	
++ Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
++ Camera Video Module 5MP Webcam 1080p 720p $14
++ 12v 30a Dc Universal Regulated Switching Power Supply 360w
++ DWVO [10 Pack] Superbright 1156 LED Light Bulb
++ 1156 BA15s LED Light Bulb Socket Holder
++ SainSmart 8 and 4-Channel Relay Modules
++ 5” 7-segment LED for ball counts	
 
 #### Software #
 + Raspbian GNU/Linux 8 (Jessie)
