@@ -48,14 +48,14 @@ SainSmart 8 and 4-Channel Relay Modules
 + Xrdp Version 0.6.1 – Remote Desktop Protocol Server
 + TightVNC 1.3.9
 + Azure-IOT-SDK-Python 2017- GitHub Branch lts_07_2017
-+Package Managers
++ Package Managers
 -	apt-get 1.0.9.8.4
 -	Yarn 1.5.1
 -	NPM 5.6.0
 -	PIP 9.0.1 and later upgraded to 18.0
 
-+Linux raspberrypi 4.9.76-v7+
-+Repository 
++ Linux raspberrypi 4.9.76-v7+
++ Repository 
 -	Development
 -		Git and GitHub – repos at https://github.com/cliffeby/duckpin2
 	Production 
