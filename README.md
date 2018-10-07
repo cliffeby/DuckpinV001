@@ -136,7 +136,8 @@ Since pins are either up or down, the 10-pin configuration was a value between 0
 
 There are several triggers that can be used to recognize a changed state.  Since it is hoped that the camera can capture at least one frame as the ball moves through the pins and pins often fall seconds after the ball has passed through the pins, a completed pin configuration state must be recognized.  A bowler’s deadwood or reset action creates this completion notice, but if reset or deadwood is not needed, the subsequent ball’s presence or timers could create a completed status.
 ### _Early Considerations and Limitations_ #
-V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 framerate.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.   
+V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 framerate.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.  
+
 | No	| Resolution	| Aspect Ratio |	Framerate |	Video	| Image |	FoV |	Binning |
 --- | --- |--- | --- | --- | --- | --- | ---
 1 |	1920x1080 |	16:9 |	0.1-30fps |	x |	| 	Partial |	None
