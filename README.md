@@ -86,7 +86,7 @@ Equally difficult for me was version control and keeping everything synched.  Di
 
 Along the way, I added the ability to use Remote Desktop and SSH from my desktop to use the RPI or access the RPI’s SDCard storage.  The only drawback is that neither remote process provides direct camera images on the remote desktop.  As shown here, OpenCV using Remote Desktop and the waitKey command to break the loop will generate an image on the remote.
 import cv2
-```
+```Python/OpenCV
 img=cv2.imread('C:/Python/03323_HD.jpg')
 cv2.imshow('Window',img)
 cv2.waitKey(0)
@@ -144,33 +144,33 @@ V2 of the piCamera module has seven default resolution/framerate modes and speci
 1 |	1920x1080 |	16:9 |	0.1-30fps |	x |	| 	Partial |	None
 2|	3280x2464	|4:3	|0.1-15fps|	x	|x|	Full|	None
 3	|3280x2464	|4:3	|0.1-15fps|	x	|x|	Full|	None
-4	|1640x1232|	4:3|	0.1-40fps	|x|	 	Full	|2x2
-5	|1640x922	|16:9	|0.1-40fps|	x	 	|Full	|2x2
-6	|1280x720	|16:9	|40-90fps|	x	 |	Partial	|2x2
-7	|640x480	|4:3|	40-90fps|	x	| 	|Partial|2x2
+4	|1640x1232|	4:3|	0.1-40fps	|x|	 |	Full	|2x2
+5	|1640x922	|16:9	|0.1-40fps|	x	 |	|Full	|2x2
+6	|1280x720	|16:9	|40-90fps|	x |	 |	Partial	|2x2
+7	|640x480	|4:3|	40-90fps|	x |	| 	|Partial|2x2
                                                      
 Use of lower resolution, threading, and buffering with post-processing were tried.  Also, a laser tripwire was tried to count the number of balls thrown.  Several insights were obtained from this exploration.
-1.	I was often able to capture video at the framerates noted above and my code worked well when post processing these frame by frame.  When trying to capture movement in real time, the code failed to find movement.  It appears that the camera captures the frame, but if the code has not requested it with a frame in camera.capture_continuous  command, the frame is destroyed. 
+1.	I was often able to capture video at the framerates noted above and my code worked well when post processing these frame by frame.  When trying to capture movement in real time, the code failed to find movement.  It appears that the camera captures the frame, but if the code has not requested the image with a `frame in camera.capture_continuous` command, the frame is destroyed. 
 2.	Much of the OpenCV sample code offered in videos or blogs on fast moving objects uses video post processing.
-3.	Placing the IO processing of the video frame in a separate thread did not seem to help real-time processing.  It appears that the piCamera buffering feature uses threading.  Tools and knowledge on improving OpenCV throughput is ongoing.  A 2015 blog by Adrian Rosebrock  offers a utility to easily separate the piCamera IO thread.
-4.	Where video was saved in a buffer during processing for pin and ball recognition, the ball was present in three to five frames.  That same code was unable to reliably capture a single frame with a ball in real time.  This reinforces the conclusion that by the time the code finished other calculations in the loop, the frames which contained the ball were no longer present.
+3.	Placing the IO processing of the video frame in a separate thread did not seem to help real-time processing.  It appears that the piCamera buffering feature uses threading.  Tools and knowledge on improving OpenCV throughput are ongoing.  A 2015 blog by Adrian Rosebrock offers a utility to easily separate the piCamera IO thread.
+4.	Where video was saved in a buffer during processing for pin and ball recognition, the ball was present in at least three to five frames.  That same code was unable to reliably capture a single frame with a ball in real time.  This reinforces the conclusion that by the time the code finished other calculations in the loop, the frames which contained the ball were no longer present.
 
 ### _Pseudocode and why_
 #### Setup
 My initial exploration of Python on an RPI showed the value of functions and the need for several initial settings.  Early efforts focused on:
 -	Camera settings
- o	Resolution, framerate and field of view relationships 
- o	Rotation
- o	Brightness
+  o	Resolution, framerate and field of view relationships 
+  o	Rotation
+  o	Brightness
 -	GPIO pins
- o	Tell RPI which GPIO pins are active
- o	Assign duckpin pin value (1-10) to a GPIO pin value
+  o	Tell RPI which GPIO pins are active
+  o	Assign duckpin pin value (1-10) to a GPIO pin value
 -	Crop Ranges to minimize the amount of processing for each image.  
- o	For each resolution
-  -	Pin locations
-  -	Reset arm and deadwood motion detection locations
-  -	Ball monitoring
-o	I used Paint and Excel to create crops.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
+  o	For each resolution
+    -	Pin locations
+    -	Reset arm and deadwood motion detection locations
+    -	Ball monitoring
+  o	I used Paint and Excel to create crops.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
 -	Imports
  o	IoT credentials: Keep access credentials out of the repo
  o	Import modules for
