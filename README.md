@@ -147,7 +147,7 @@ V2 of the piCamera module has seven default resolution/framerate modes and speci
 4	|1640x1232|	4:3|	0.1-40fps	|x|	 	Full	|2x2
 5	|1640x922	|16:9	|0.1-40fps|	x	 	|Full	|2x2
 6	|1280x720	|16:9	|40-90fps|	x	 |	Partial	|2x2
-7	|640x480	|	4:3|	40-90fps	|x	| 	|Partial|	2x2
+7	|640x480	|4:3|	40-90fps|	x	| 	|Partial|2x2
                                                      
 Use of lower resolution, threading, and buffering with post-processing were tried.  Also, a laser tripwire was tried to count the number of balls thrown.  Several insights were obtained from this exploration.
 1.	I was often able to capture video at the framerates noted above and my code worked well when post processing these frame by frame.  When trying to capture movement in real time, the code failed to find movement.  It appears that the camera captures the frame, but if the code has not requested it with a frame in camera.capture_continuous  command, the frame is destroyed. 
@@ -289,20 +289,27 @@ o	More data are needed to determine the accuracy of the camera and centroid calc
 #### Headless:
 In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading Five Ways To Run a Program On Your Raspberry Pi At Startup , I chose to use systemd  files.  If you use absolute paths to locate your files, the technique works well.
 The commands:
+```
 sudo systemctl daemon-reload
 sudo systemctl enable sample.service
 sudo systemctl start sample.service
 sudo systemctl status sample.service
 sudo systemctl stop sample.service
 and ps aux 
+```
 provide the tools to debug startup issues.
 SD card or RAM disk:  Several blogs referenced a limited life of SD cards that are in a write, read, delete and repeat loop.    Extending the life of the SD card  shows how to use ram storage for these temporary files.  
+```
 #!/bin/bash
 sudo mkdir -p /ram
 sudo mount -t tmpfs -o size=100m tmpfs /ram
+```
 Add this line to /etc/fstab.  It mounts a folder to RAM, where 777 specifies file permissions
+```
 tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
-Logging:  Programs started by systemd do not have a console for printing.  Python’s import logging is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
+```
+#### Logging:  
+Programs started by systemd do not have a console for printing.  Python’s import logging is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
 ### Code Repo  Duckpin2 nn GitHub  - pull requests accepted.
 ### Challenges
 I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.  
@@ -319,7 +326,7 @@ Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1
 ![image](https://user-images.githubusercontent.com/1431998/46447220-9b333100-c74e-11e8-9a6c-e841205d0d31.png)
  
  
-An Excel spreadsheet of 40+ processed videos can be found at https://1drv.ms/f/s!AgsEoWikEEW_kbUhAIBbAnb66hNgvA
+An Excel spreadsheet of 40+ processed videos can be found at https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel
 
 
 ### Resources
