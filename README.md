@@ -130,6 +130,7 @@ Data package ready |	Send IoT data to Cloud
 
 OpenCV typically uses a mask approach to detect motion or changes between two frames of video.  The first frame is subtracted from the second and differences are highlighted.  This approach works well for frame by frame video detecting a ball moving toward the pins and both deadwood and reset pinsetter activities.  
 To detect presence of a specific pin, individual pin pattern matching was attempted but found to offer poor results.  Due to varying distance from the camera the pins were different sizes; back pins were obscured; and reflections often created false positives.   The pin tops were tried to eliminate the size, reflection, and obscurity issues, but matching was inconsistent.  ![image](https://user-images.githubusercontent.com/1431998/46577920-b9ec2e80-c9bf-11e8-98c2-6cab259b27a5.png) 
+
 Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often cropped to improve speed and edge conditions.
 
 Since pins are either up or down, the 10-pin configuration was a value between 0 and 1023 (10 exp 2 = 1024).  Pin 1 (index [0]) has an up value of 512, Pin 2 (index [1]) an up value of 256… and Pin 10 (index [9]) an up value of 1.  The pin configuration number is simply the sum of the ten values or the binary string ranging from b1111111111 equal to 1023 and b0000000000 = 0.
@@ -142,12 +143,12 @@ V2 of the piCamera module has seven default resolution/framerate modes and speci
 --- | --- |--- | --- | --- | --- | --- | ---
 1 |	1920x1080 |	16:9 |	0.1-30fps |	x |	| 	Partial |	None
 
-2	3280x2464	4:3	0.1-15fps	x	x	Full	None
-3	3280x2464	4:3	0.1-15fps	x	x	Full	None
-4	1640x1232	4:3	0.1-40fps	x	 	Full	2x2
-5	1640x922	16:9	0.1-40fps	x	 	Full	2x2
-6	1280x720	16:9	40-90fps	x	 	Partial	2x2
-7	640x480		4:3	40-90fps	x	 	Partial	2x2
+2|	3280x2464	|4:3	|0.1-15fps|	x	|x|	Full|	None
+3	|3280x2464	|4:3	|0.1-15fps|	x	|x|	Full|	None
+4	|1640x1232|	4:3|	0.1-40fps	|x|	 	Full	|2x2
+5	|1640x922	|16:9	|0.1-40fps|	x	 	|Full	|2x2
+6	|1280x720	|16:9	|40-90fps|	x	 |	Partial	|2x2
+7	|640x480	|	4:3|	40-90fps	|x	| 	|Partial|	2x2
                                                      
 Use of lower resolution, threading, and buffering with post-processing were tried.  Also, a laser tripwire was tried to count the number of balls thrown.  Several insights were obtained from this exploration.
 1.	I was often able to capture video at the framerates noted above and my code worked well when post processing these frame by frame.  When trying to capture movement in real time, the code failed to find movement.  It appears that the camera captures the frame, but if the code has not requested it with a frame in camera.capture_continuous  command, the frame is destroyed. 
