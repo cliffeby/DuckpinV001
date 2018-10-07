@@ -142,7 +142,6 @@ V2 of the piCamera module has seven default resolution/framerate modes and speci
 | No	| Resolution	| Aspect Ratio |	Framerate |	Video	| Image |	FoV |	Binning |
 --- | --- |--- | --- | --- | --- | --- | ---
 1 |	1920x1080 |	16:9 |	0.1-30fps |	x |	| 	Partial |	None
-
 2|	3280x2464	|4:3	|0.1-15fps|	x	|x|	Full|	None
 3	|3280x2464	|4:3	|0.1-15fps|	x	|x|	Full|	None
 4	|1640x1232|	4:3|	0.1-40fps	|x|	 	Full	|2x2
@@ -160,48 +159,49 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 #### Setup
 My initial exploration of Python on an RPI showed the value of functions and the need for several initial settings.  Early efforts focused on:
 -	Camera settings
-o	Resolution, framerate and field of view relationships 
-o	Rotation
-o	Brightness
+ o	Resolution, framerate and field of view relationships 
+ o	Rotation
+ o	Brightness
 -	GPIO pins
-o	Tell RPI which GPIO pins are active
-o	Assign duckpin pin value (1-10) to a GPIO pin value
+ o	Tell RPI which GPIO pins are active
+ o	Assign duckpin pin value (1-10) to a GPIO pin value
 -	Crop Ranges to minimize the amount of processing for each image.  
-o	For each resolution
-	Pin locations
-	Reset arm and deadwood motion detection locations
-	Ball monitoring
+ o	For each resolution
+  -	Pin locations
+  -	Reset arm and deadwood motion detection locations
+  -	Ball monitoring
 o	I used Paint and Excel to create crops.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
 -	Imports
-o	IoT credentials: Keep access credentials out of the repo
-o	Import modules for
-	time, sys, and IO
-	Numpy
-	GPIO
-	OpenCV
-	piCamera
-	IoT functions
-o	Functions that are infrequently used can be imported and not directly listed in the main code.
+ o	IoT credentials: Keep access credentials out of the repo
+ o	Import modules for
+  -	time, sys, and IO
+  -	Numpy
+  -	GPIO
+  -	OpenCV
+  -	piCamera
+  -	IoT functions
+ o	Functions that are infrequently used can be imported and not directly listed in the main code.
 -	Argv – assign defaults and values
 -	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.
+
 The ability to turn these functions off and on is helpful.  Functions that I used were:
 o	Capture a number(X) of images at a certain time or frame count(Y)
 o	Capture a video stream for (X) seconds at a certain time or frame count (Y)
 o	Show current image being processed
-	Full image with crop locations/coordinates
-	Cropped image with annotations for xy corners
+  -	Full image with crop locations/coordinates
+  -	Cropped image with annotations for xy corners
 -	Pin Count and lighting leds – Two simple functions
 o	pinCount
-	If red band in cropped pin location exceeds threshold value:
+  -	If red band in cropped pin location exceeds threshold value:
 •	Sum pin count + (2 exp (9-pin location index))
 o	LightLeds()
-	Convert pin count to a binary string X
-	Loop through X and GPIO pin array index [X]
+  -	Convert pin count to a binary string X
+  -	Loop through X and GPIO pin array index [X]
 •	If 1, turn GPIO to HIGH
 •	If 0, turn GPIO to LOW
 #### Find Standing Pins
 -	findPins()
-o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
+ o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
 	Create a numpy array for the RGB high and low values
 	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
