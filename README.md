@@ -1,7 +1,7 @@
 # Duckpins -Project Documentation
 
 ### _About Me_
-I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a crtl-c/crlt-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Roch app, I will document some of the "not so sample" issues and questions that arise.   
+I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a crtl-c/crlt-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Duckpins and [Roch](https://cliffeby.github.io/RochV001a/) app, I will document some of the "not so sample" issues and questions that arise.   
 
 This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document will be updated as I learn more about the MEAN Stack.
  
@@ -147,7 +147,7 @@ V2 of the piCamera module has seven default resolution/framerate modes and speci
 4	|1640x1232|	4:3|	0.1-40fps	|x|	 |	Full	|2x2
 5	|1640x922	|16:9	|0.1-40fps|	x	 |	|Full	|2x2
 6	|1280x720	|16:9	|40-90fps|	x |	 |	Partial	|2x2
-7	|640x480	|4:3|	40-90fps|	x |	| 	|Partial|2x2
+7	|640x480	|4:3|	40-90fps|	x |	|Partial|2x2
                                                      
 Use of lower resolution, threading, and buffering with post-processing were tried.  Also, a laser tripwire was tried to count the number of balls thrown.  Several insights were obtained from this exploration.
 1.	I was often able to capture video at the framerates noted above and my code worked well when post processing these frame by frame.  When trying to capture movement in real time, the code failed to find movement.  It appears that the camera captures the frame, but if the code has not requested the image with a `frame in camera.capture_continuous` command, the frame is destroyed. 
@@ -157,7 +157,7 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 
 ### _Pseudocode and why_
 #### Setup
-My initial exploration of Python on an RPI showed the value of functions and the need for several initial settings.  Early efforts focused on:
+My initial exploration of Python on an RPI showed the value of functions and the need for configuration settings.  Early efforts focused on:
 -	Camera settings
   o	Resolution, framerate and field of view relationships 
   o	Rotation
@@ -190,65 +190,65 @@ o	Capture a video stream for (X) seconds at a certain time or frame count (Y)
 o	Show current image being processed
   -	Full image with crop locations/coordinates
   -	Cropped image with annotations for xy corners
--	Pin Count and lighting leds – Two simple functions
+  -	Pin Count and lighting leds – Two simple functions
 o	pinCount
   -	If red band in cropped pin location exceeds threshold value:
-•	Sum pin count + (2 exp (9-pin location index))
+  -	Sum pin count + (2 exp (9-pin location index))
 o	LightLeds()
   -	Convert pin count to a binary string X
   -	Loop through X and GPIO pin array index [X]
-•	If 1, turn GPIO to HIGH
-•	If 0, turn GPIO to LOW
+	-	If 1, turn GPIO to HIGH
+	-	If 0, turn GPIO to LOW
 #### Find Standing Pins
 -	findPins()
  o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
-	Create a numpy array for the RGB high and low values
-	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
+-	Create a numpy array for the RGB high and low values
+-	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
-o	Create a red mask using the previously described crops and the cv2.inRange function
-o	Apply the mask to the video stream image using cv2.bitwise_and
-o	For each pin location, defined by a specific cropped range, measure the color level in the range:
-	If red is present:
-•	Sum pinCount
-o	Compare sum to prior pinCount
-	If changed, record as desired.
+-	Create a red mask using the previously described crops and the cv2.inRange function
+-	Apply the mask to the video stream image using cv2.bitwise_and
+-For each pin location, defined by a specific cropped range, measure the color level in the range:
+-	If red is present:
+-	Sum pinCount
+-	Compare sum to prior pinCount
+-	If changed, record as desired.
 
 -	Pinsetter Deadwood() and Reset()
-o	A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
-o	Deadwood()
-	Detect a large green mass moving from the top
-•	Create arrays of green colors for green mask.
-o	Create a numpy array for the RGB high and low values
-o	MS Paint worked well to pick the green RGB values from images in the video streams.  
-•	Create a green mask using the cv2.inRange function
-•	Apply the mask to the video stream image using cv2.bitwise_and
-•	Measure the color level in the range:
-o	If green is present:
-	Set DeadwoodPresentFlag
-	Return True
-o	Else:
-	Return False
-o	Reset()
-	Arm movement, prior to the green pinsetter indicates a Reset.
-	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
-•	Set ResetPresentFlag
-•	Set pinCount to 1023
-•	Return True
-	Else:
-•	Return False
+-	A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
+-	Deadwood()
+-	Detect a large green mass moving from the top
+-	Create arrays of green colors for green mask.
+-	Create a numpy array for the RGB high and low values
+-	MS Paint worked well to pick the green RGB values from images in the video streams.  
+-	Create a green mask using the cv2.inRange function
+-	Apply the mask to the video stream image using cv2.bitwise_and
+-	Measure the color level in the range:
+-	If green is present:
+-	Set DeadwoodPresentFlag
+-	Return True
+-	Else:
+-	Return False
+-	Reset()
+-	Arm movement, prior to the green pinsetter indicates a Reset.
+-	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
+-	Set ResetPresentFlag
+-	Set pinCount to 1023
+-	Return True
+-	Else:
+-	Return False
 
 #### Send IoT messages
 This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
-o	Initialize the iot client
-o	Save captured video to a RAM file
-o	Format the filename 
-o	Send the message
-o	Report acceptance and error callback conditions 
+-	Initialize the iot client
+-	Save captured video to a RAM file
+-	Format the filename 
+-	Send the message
+-	Report acceptance and error callback conditions 
 
 -	The Main loop
-o	Initialize the camera, GPIO pins, counters and values
-o	Allow camera to warm up
-o	Create a mask for the ball detection area from a stored image
+-	Initialize the camera, GPIO pins, counters and values
+-	Allow camera to warm up
+-	Create a mask for the ball detection area from a stored image
 o	Grab a frame from the camera stream
 o	Crop frame to mask dimensions for ball detection
 o	Convert mask and next frame to GRAY using cv2.cvtColor
