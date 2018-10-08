@@ -324,6 +324,11 @@ Except for ball capture and counting, the project worked as expected.  Up pins a
 
 The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed at [video](https://1drv.ms/u/s!AgsEoWikEEW_kfkXsurFeKnv1td9pQ)
 
+
+https://youtu.be/L5hAcsVH-dI
+
+[![VIDEO](http://img.youtube.com/vi/L5hAcsVH-dI/0.jpg)](http://www.youtube.com/watch?v=L5hAcsVH-dI)
+
 The text below is output from the post processing effort of a single video to be entered in an Azure table.
 
 >Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', >'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'} 
