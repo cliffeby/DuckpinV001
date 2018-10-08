@@ -35,7 +35,9 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
 + Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
 + Camera Video Module 5MP Webcam 1080p 720p $14
 + 12v 30a Dc Universal Regulated Switching Power Supply 360w
-+ DWVO [10 Pack] Superbright 1156 LED Light Bulb
++ LED bulbs and sockets
+  - Five-watt equivalent, LED T10 wedge bulbs and connectors
+  - DWVO Superbright 1156 LED Light Bulb
 + 1156 BA15s LED Light Bulb Socket Holder
 + SainSmart 8 and 4-Channel Relay Modules
 + 5” 7-segment LED for ball counts	
@@ -64,39 +66,40 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
 
 ### _The RPI image and how_
 Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing the RPI in a case) and a backup would have saved a lot of time.
-I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y
-Appendix A contains hints on the image setup and issues that I encountered.
+
+I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y.  Appendix A contains hints on the image setup and issues that I encountered.
 
 ### _Where to start?_
-Several online video tutorials  show an RPI with a standard 1080p camera module able to achieve multiple (maybe over 40) frames per second video processing throughput.  Relays connected to the GPIO pins should be able to switch/light 10 led bulbs using an external 12vdc power supply.  Azure and AWS have RPI SDKs.  It seems like all the pieces are there but can it all come together to be more than a “classroom” or “demo” project.
+Several online video tutorials show an RPI with a standard 1080p camera module able to achieve multiple (maybe over 40) frames per second video processing throughput.  Relays connected to the GPIO pins should be able to switch/light 10 led bulbs using an external 12vdc power supply.  Azure and AWS have RPI SDKs.  It seems like all the pieces are there, but can it all come together to be more than a “classroom” or “demo” project.
 
 RPIs use a Linux variant, Debian, operating system.  As a DOS/Windows guy, it would offer some challenges, but nothing a search couldn’t solve.  Most RPI video processing is done with Open Computer Vision (OpenCV) which has Python and C++ SDKs.  With no background in either language, I investigated C++ because it was reported to be faster.  After a couple of tries, I moved to Python because:
 -	it felt more like JavaScript or the Fortran that I had once used
 -	it had many more tutorials 
 -	the OpenCV and other Python imports are C++ wrapped and I wouldn’t be losing a lot of processing speed.
 
-On a RPI, typically two major Python versions are installed.  I stuck with Version 3 and at the time of this writing it was Python V 3.4.2 ($ python3 –v).  I found Python 2 examples often needed some syntax changes to pass the interpreter.  
+On a RPI, typically two major Python versions are installed.  I stuck with Version 3 and at the time of this writing it was Python V 3.4.2 ($ python3 –v).  I found Python 2 examples often needed some syntax changes to pass the Python3 interpreter.  
 
-The RPI is an amazing piece of hardware for $35, but I prefer to use my desktop for coding and research.  When I loaded Python to my desktop, I installed Python version 3.6.2.  It installed to Programs\Python\Python36-32 and was added to the path so that the >python starts the Python3 interpreter.  I did not have issues with portability between the two Python 3 versions.
+The RPI is an amazing piece of hardware for $35, but I prefer to use my desktop for coding and research.  When I loaded Python to my desktop, I installed Python version 3.6.2.  It installed to Programs\Python\Python36-32 and was added to the path so that the `>python` starts the Python3 interpreter.  I did not have issues with portability between the two Python3 versions.
 
-Python syntax was a little new (see Wikipedia page  and this online book  for a good language summary) My first programs were to understand the control/looping syntax and data structures - dictionaries, lists, generators, and tuples. The default IDE on the RPI is IDLE but it is short on features.  I tried installations of Webstorm and Visual Studio Code and settled on VSCode despite the previously referenced error on an RPI.  VSCode also consumes considerably more resources than IDLE, so IDLE was often used when only minor changes were expected.  
+Python syntax was a little new (see Wikipedia page  and this online book  for a good language summary). My first programs were to understand the control/looping syntax and data structures - dictionaries, lists, generators, and tuples. The default IDE on the RPI is IDLE but it is short on features.  I tried installations of Webstorm and Visual Studio Code and settled on VSCode despite the previously referenced error on an RPI.  VSCode also consumes considerably more resources than IDLE, so IDLE was often used when only minor changes were expected.  
 
 OpenCV was next and early efforts were to grab a frame from a video stream, analyze it, and save it to a file.  Some tutorials offered a video file for experimentation, so I started with my desktop development instance and moved to the RPI piCamera after some experimentation.  Recognizing that I would not want to do most of development sitting next to the pinsetter, I used the camera to capture representative video for subsequent development.  But this created two code bases, one with video from a file and a second with video streamed from the camera.
 
 Equally difficult for me was version control and keeping everything synched.  Discipline with git and GitHub was always lacking but I tried to make it work.  With three local repos (desktop, RPI at the lane, and RPI at home) and the GitHub remote, I used Appendix B to keep synched.
 
 Along the way, I added the ability to use Remote Desktop and SSH from my desktop to use the RPI or access the RPI’s SDCard storage.  The only drawback is that neither remote process provides direct camera images on the remote desktop.  As shown here, OpenCV using Remote Desktop and the waitKey command to break the loop will generate an image on the remote.
+
+```Python
 import cv2
-```Python/OpenCV
 img=cv2.imread('C:/Python/03323_HD.jpg')
 cv2.imshow('Window',img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
 
-Since my final installation was expected to be an RPI without a monitor or input devices, I needed to learn remoting resources and limitations.  Argv from the sys import was one of those concepts.  It allows you to pass parameters from a command line execution.  Again, lots of online tutorials on this.
+Since my final installation was expected to be an RPI without a monitor or input devices, I needed to learn remoting resources and limitations.  Argv from the `import sys` was one of those concepts.  It allows you to pass parameters from a command line execution.  Again, lots of online tutorials on this.
 
-Next was the use of GPIO pins on the RPI.  I started with the obligatory single blinking led on a breadboard powered by the RPI and quickly moved on connecting the GPIO pins to SainSmart 8 and 4-Channel Relay Modules.  Like my learning Python syntax and OpenCV, I created some simple programs to get results.  
+Next was the use of GPIO pins on the RPI.  I started with the obligatory single blinking led on a breadboard powered by the RPI and quickly moved on connecting the GPIO pins to SainSmart 8 and 4-Channel Relay Modules.  Like my learning Python syntax and OpenCV, I created some simple programs to get feedback.  
 
 Finally, I turned to IoT to send a store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
 
@@ -109,7 +112,7 @@ I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules
 4.	Since I had no idea where the optimum location or angle for the camera was, I first choose a tripod for the piCamera mount.  After some experimentation, a 24” ribbon cable and an angled camera mount allowed me to permanently fix the piCamera on the wood channel.
 5.	I wanted space for the power supply to keep everything portable.
 
-Reflectors for the bulbs to light the Lucite numbers were long since destroyed and unavailable.  Using a 4” and 2 3/8” hole saw, I created ¼” plywood flanges and cut the tops off 12oz. soda cans for the reflectors (Figure 3). A washer was epoxied to the back of the can to accept the bulb holder.
+Reflectors for the bulbs to light the Lucite numbers were long since destroyed and unavailable.  Using a 4” and 2 3/8” hole saw, I created ¼” plywood flanges and cut the tops off 12oz. soda cans for the reflectors. A washer was epoxied to the back of the can to accept the bulb holder.
  
 Two led bulb forms were considered.  A five-watt equivalent, led T10 wedge bulbs and connectors were inexpensive and produced subtle light.  The 15-watt equivalent, led 1156 base, also inexpensive, but was overpowering and washed out the Lucite number.  Both bulbs offered various colors if desired.  Beware, led bulbs have polarity, and the T10 wedge is interchangeable.  No harm if in backwards, it just doesn’t light.
 
@@ -129,10 +132,11 @@ None of the above |	Check for pins standing; light led bulbs
 Pins stopped falling |	Record pin configuration
 Data package ready |	Send IoT data to Cloud
 
-OpenCV typically uses a mask approach to detect motion or changes between two frames of video.  The first frame is subtracted from the second and differences are highlighted.  This approach works well for frame by frame video detecting a ball moving toward the pins and both deadwood and reset pinsetter activities.  
+OpenCV typically uses a mask approach to detect motion or changes between two frames of video.  The first frame is subtracted from the second and differences are highlighted.  This approach works well for frame by frame video detecting a ball moving toward the pins and both deadwood and reset pinsetter activities. 
+
 To detect presence of a specific pin, individual pin pattern matching was attempted but found to offer poor results.  Due to varying distance from the camera the pins were different sizes; back pins were obscured; and reflections often created false positives.   The pin tops were tried to eliminate the size, reflection, and obscurity issues, but matching was inconsistent.  ![image](https://user-images.githubusercontent.com/1431998/46577920-b9ec2e80-c9bf-11e8-98c2-6cab259b27a5.png) 
 
-Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often cropped to improve speed and edge conditions.
+Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often "cropped" to improve speed and edge conditions.
 
 Since pins are either up or down, the 10-pin configuration was a value between 0 and 1023 (10 exp 2 = 1024).  Pin 1 (index [0]) has an up value of 512, Pin 2 (index [1]) an up value of 256… and Pin 10 (index [9]) an up value of 1.  The pin configuration number is simply the sum of the ten values or the binary string ranging from b1111111111 equal to 1023 and b0000000000 = 0.
 
@@ -171,7 +175,7 @@ My initial exploration of Python on an RPI showed the value of functions and the
     -	Pin locations
     -	Reset arm and deadwood motion detection locations
     -	Ball monitoring
-  o	I used Paint and Excel to create crops.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
+  o	I used Paint and Excel to create crop ranges.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
 -	Imports
  o	IoT credentials: Keep access credentials out of the repo
  o	Import modules for
@@ -192,27 +196,27 @@ o	Show current image being processed
   -	Full image with crop locations/coordinates
   -	Cropped image with annotations for xy corners
   -	Pin Count and lighting leds – Two simple functions
-o	pinCount
-  -	If red band in cropped pin location exceeds threshold value:
-  -	Sum pin count + (2 exp (9-pin location index))
-o	LightLeds()
-  -	Convert pin count to a binary string X
-  -	Loop through X and GPIO pin array index [X]
+    o	pinCount
+      -	If red band in cropped pin location exceeds threshold value:
+      -	Sum pin count + (2 exp (9-pin location index))
+   o	LightLeds()
+      -	Convert pin count to a binary string X
+      -	Loop through X and GPIO pin array index [X]
 	-	If 1, turn GPIO to HIGH
 	-	If 0, turn GPIO to LOW
 #### Find Standing Pins
 -	findPins()
  o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
--	Create a numpy array for the RGB high and low values
--	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
+   -	Create a numpy array for the RGB high and low values
+   -	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
 -	Create a red mask using the previously described crops and the cv2.inRange function
 -	Apply the mask to the video stream image using cv2.bitwise_and
--For each pin location, defined by a specific cropped range, measure the color level in the range:
--	If red is present:
--	Sum pinCount
--	Compare sum to prior pinCount
--	If changed, record as desired.
+-       For each pin location, defined by a specific cropped range, measure the color level in the range:
+  -	If red is present:
+    -	Sum pinCount
+    -	Compare sum to prior pinCount
+    -	If changed, record as desired.
 
 -	Pinsetter Deadwood() and Reset()
 -	A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
