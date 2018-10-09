@@ -315,8 +315,9 @@ Add this line to /etc/fstab.  It mounts a folder to RAM, where 777 specifies fil
 tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
 ```
 #### Logging:  
-Programs started by systemd do not have a console for printing.  Python’s import logging is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
-### Code Repo  Duckpin2 nn GitHub  - pull requests accepted.
+Programs started by systemd do not have a console for printing.  Python’s `Python import logging` is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
+### Code Repo  Duckpin2 in GitHub  - pull requests accepted.
+This repo contains all the code to learn Python and understanding video frame processing.  The key files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `Python imports` to keep the code length reasonable.  These `Python imports` must be in the same folder as the DPBoot.py file.  The second file is the post processing file that I run when blobs are present in Azure Blob Storage.
 ### Challenges
 I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.  
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
@@ -324,25 +325,26 @@ If the piCamera was moved, calibration of cropped areas was a challenge.  Seems 
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
 
 The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed by clicking the image below.
+
 [![VIDEO](http://img.youtube.com/vi/8zUnTeoKMoY/0.jpg)](http://www.youtube.com/watch?v=8zUnTeoKMoY)
 
-The text below is output from the post processing effort of a single video to be entered in an Azure table.
+The text below is output from the post processing effort this single video.  This JSON formatted data is entered in an Azure table.
 
->Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', >'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'} 
+`>Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', >'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'}` 
 
 ![image](https://user-images.githubusercontent.com/1431998/46447199-88206100-c74e-11e8-8f5a-f60b725ebf02.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447210-91113280-c74e-11e8-8108-1a7fa60ebb48.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447214-966e7d00-c74e-11e8-88c9-55309c845ebe.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447220-9b333100-c74e-11e8-9a6c-e841205d0d31.png)
  
- 
-An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel)
+Blob storage content can be viewed and downloaded directly in the Azure Portal; Table data cannot.  I find that Azure Storage Explorer is the best tool for viewing, editing or downloading bolbs and tables.  
 
+### Analysis
+An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel).  It is a very simple tool to sort and filter the data for initial understanding of what may be possible with the data.  I will provide access to the table data for any interested party.
 
 ### Resources
 
-Message Pack vs Apache AVRO vs CSV
-IOT to BLOB to PowerBi should just work.
+
 
 Research
 https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/
@@ -356,8 +358,9 @@ https://www.raspberrypi.org/documentation/linux/usage/cron.md
 sudo apt-get install gnome-schedule
 
 
-Duck8500
- 
+Message Pack vs Apache AVRO vs CSV
+IOT to BLOB to PowerBi should just work.
+
 ## Appendix A – RPI Image setup
 1.	RPI Basics
 a.	Most SDCards purchased with a RPI come with Raspbian installed.  Suggest that you update it first using the apt-get command above
