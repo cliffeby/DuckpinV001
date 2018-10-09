@@ -252,22 +252,22 @@ This function can be called on any change in pin configuration.  Initially, the 
 -	Report acceptance and error callback conditions 
 
 -	The Main loop
--	Initialize the camera, GPIO pins, counters and values
--	Allow camera to warm up
--	Create a mask for the ball detection area from a stored image
-o	Grab a frame from the camera stream
-o	Crop frame to mask dimensions for ball detection
-o	Convert mask and next frame to GRAY using cv2.cvtColor
-o	Detect the difference between the two gray images use cv2.absdiff
-	This difference is an array not an image
-o	Use cv2.threshold to convert to black or white image
-o	Use cv2.medianBlur to reduce noise
-o	Use cv2.findContours find and locate objects
-o	For objects found:
-	Find the biggest circle present using max(objects, key = cv2.countourArea)
-	Use cv2.minEnclosingCircle to determine radius and xy location
-	If radius is significant:
-•	A few alternatives–
+  -	Initialize the camera, GPIO pins, counters and values
+  -	Allow camera to warm up
+  -	Create a mask for the ball detection area from a stored image
+    o	Grab a frame from the camera stream
+    o	Crop frame to mask dimensions for ball detection
+    o	Convert mask and next frame to GRAY using cv2.cvtColor
+    o	Detect the difference between the two gray images use cv2.absdiff
+      =	This difference is an array not an image
+      o	Use cv2.threshold to convert to black or white image
+      o	Use cv2.medianBlur to reduce noise
+      o	Use cv2.findContours find and locate objects
+      o	For objects found:
+       =	Find the biggest circle present using max(objects, key = cv2.countourArea)
+       =	Use cv2.minEnclosingCircle to determine radius and xy location
+       =	If radius is significant:
+       •	A few alternatives–
 o	RPI processing
 	Save ball xy data
 	Get next frame as quickly as possible.  [This is an important performance issue.  Other processes can wait while we get as much ball motion as possible.]
@@ -315,9 +315,11 @@ Add this line to /etc/fstab.  It mounts a folder to RAM, where 777 specifies fil
 tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
 ```
 #### Logging:  
-Programs started by systemd do not have a console for printing.  Python’s `Python import logging` is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
+Programs started by systemd do not have a console for printing.  Python’s `import logging` is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
 ### Code Repo  Duckpin2 in GitHub  - pull requests accepted.
-This repo contains all the code to learn Python and understanding video frame processing.  The key files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `Python imports` to keep the code length reasonable.  These `Python imports` must be in the same folder as the DPBoot.py file.  The second file is the post processing file that I run when blobs are present in Azure Blob Storage.
+This repo contains all the code to learn Python and understanding video frame processing.  The key files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `imports` to keep the code length reasonable.  These file `imports` must be in the same folder as the DPBoot.py file.  
+
+The second file is the post processing file that I run when blobs are present in Azure Blob Storage.  I had hoped to use an Azure function for this processing, but have yet to find OpenCV in Azure functions.  Also, I'm am not aware of an cheap vm process that i can schedule to run daily.  At present, I run it nightly on my desktop. 
 ### Challenges
 I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.  
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
@@ -375,7 +377,7 @@ i.	$ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 ii.	$ sudo apt-get install -y nodejs
 iii.	$ node -v
 3.	Open CV – a lengthy process
-a.	sudo apt-get install build-essential git cmake pkg-config
+`a.	sudo apt-get install build-essential git cmake pkg-config
 b.	sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
 c.	sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 d.	sudo apt-get install libxvidcore-dev libx264-dev
@@ -389,7 +391,6 @@ k.	cd ~
 l.	git clone https://github.com/Itseez/opencv_contrib.git
 m.	cd opencv_contrib
 n.	git checkout 3.1.0
-
 o.	sudo apt-get install python3-dev
 p.	wget https://bootstrap.pypa.io/get-pip.py
 q.	sudo python3 get-pip.py
@@ -405,7 +406,7 @@ z.	    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 aa.	    -D BUILD_EXAMPLES=ON ..
 bb.	make -j4
 cc.	sudo make install
-dd.	sudo ldconfig
+dd.	sudo ldconfig`
 4.	Yarn
 a.	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 b.	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
