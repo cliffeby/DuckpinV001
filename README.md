@@ -322,11 +322,7 @@ If the piCamera was moved, calibration of cropped areas was a challenge.  Seems 
 ### Results
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
 
-The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed at [video](https://1drv.ms/u/s!AgsEoWikEEW_kfkXsurFeKnv1td9pQ)
-
-
-https://youtu.be/L5hAcsVH-dI
-
+The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed by clicking the image below.
 [![VIDEO](http://img.youtube.com/vi/L5hAcsVH-dI/0.jpg)](http://www.youtube.com/watch?v=L5hAcsVH-dI)
 
 The text below is output from the post processing effort of a single video to be entered in an Azure table.
