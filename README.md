@@ -339,7 +339,8 @@ The text below is output from the post processing effort this single video.  Thi
 ![image](https://user-images.githubusercontent.com/1431998/46447214-966e7d00-c74e-11e8-88c9-55309c845ebe.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447220-9b333100-c74e-11e8-9a6c-e841205d0d31.png)
  
-Blob storage content can be viewed and downloaded directly in the Azure Portal; Table data cannot.  I find that Azure Storage Explorer is the best tool for viewing, editing or downloading bolbs and tables.  
+Blob storage content can be viewed and downloaded directly in the Azure Portal; Table data cannot.  I find that Azure Storage Explorer is the best tool for viewing, editing or downloading bolbs and tables.
+![image](https://user-images.githubusercontent.com/1431998/46670789-1f4b4580-cba1-11e8-9e96-cec890f5df40.png)
 
 ### Analysis
 An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel).  It is a very simple tool to sort and filter the data for initial understanding of what may be possible with the data.  I will provide access to the table data for any interested party.
@@ -377,7 +378,8 @@ i.	$ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 ii.	$ sudo apt-get install -y nodejs
 iii.	$ node -v
 3.	Open CV – a lengthy process
-`a.	sudo apt-get install build-essential git cmake pkg-config
+```
+a.	sudo apt-get install build-essential git cmake pkg-config
 b.	sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
 c.	sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 d.	sudo apt-get install libxvidcore-dev libx264-dev
@@ -406,7 +408,8 @@ z.	    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 aa.	    -D BUILD_EXAMPLES=ON ..
 bb.	make -j4
 cc.	sudo make install
-dd.	sudo ldconfig`
+dd.	sudo ldconfig
+```
 4.	Yarn
 a.	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 b.	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
