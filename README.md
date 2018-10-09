@@ -417,32 +417,34 @@ dd.	sudo ldconfig
 a.	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 b.	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 c.	sudo apt-get update && sudo apt-get install yarn
+```
 5.	Azure -IOT
+```
 a.	git clone https://github.com/Azure-Samples/iot-hub-python-raspberrypi-client-app.git
 b.	cd iot-hub-python-raspberrypi-client-app
 c.	nano config.py
-i.	sudo chmod u+x setup.sh
-ii.	sudo ./setup.sh
-iii.	You can also specify the version you want by running sudo ./setup.sh [--python-version|-p] [2.7|3.4|3.5]. 
+  i.	sudo chmod u+x setup.sh
+  ii.	sudo ./setup.sh
+  iii.	You can also specify the version you want by running sudo ./setup.sh [--python-version|-p] [2.7|3.4|3.5]. 
 d.	If you run script without parameter, the script will automatically detect the version of python installed (Search sequence 2.7->3.4->3.5). Make sure your Python version keeps consistent during building and running.
 ```
 6.	VSCode on the RPI - optional
 ```
-a.	I’ve tried several tutorials on getting VSCode on a RPI.  The following works but it produces an annoying error  with every file change or save.
-i.	Install GPG key
-1.	sudo wget -qO - https://packagecloud.io/headmelted/codebuilds/gpgkey | sudo apt-key add -;
+I’ve tried several tutorials on getting VSCode on a RPI.  The following works but it produces an annoying error  with every file change or save.
+  i.	Install GPG key
+    1.	sudo wget -qO - https://packagecloud.io/headmelted/codebuilds/gpgkey | sudo apt-key add -;
 ii.	Add source repository
-1.	sudo nano /etc/apt/sources.list
-2.	deb https://packagecloud.io/headmelted/codebuilds/raspbian/ jessie main
+    1.	sudo nano /etc/apt/sources.list
+    2.	deb https://packagecloud.io/headmelted/codebuilds/raspbian/ jessie main
 iii.	Ctrl-X, Y, enter to exit 'nano' and save the updated file.
 iv.	Install VS Code (code-oss)
-1.	sudo apt-get update
-2.	sudo apt-get install code-oss
+    1.	sudo apt-get update
+    2.	sudo apt-get install code-oss
 v.	Launching VS Code (code-oss) Under the Pi desktop start menu, under Programming, there should now be a "Code - OSS" link.
 vi.	Supporting Links
-1.	Headmelted home page : https://code.headmelted.com
-2.	Package releases : https://packagecloud.io/headmelted/codebuilds
-3.	GPG key from : https://packagecloud.io/headmelted/codebuilds/gpgkey
+    1.	Headmelted home page : https://code.headmelted.com
+    2.	Package releases : https://packagecloud.io/headmelted/codebuilds
+    3.	GPG key from : https://packagecloud.io/headmelted/codebuilds/gpgkey
 ```
  
 ## Appendix B   GitHub
