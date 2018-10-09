@@ -41,7 +41,6 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
 + 1156 BA15s LED Light Bulb Socket Holder
 + SainSmart 8 and 4-Channel Relay Modules
 + 5” 7-segment LED for ball counts	
-
 #### Software #
 + Raspbian GNU/Linux 8 (Jessie)
 + Python 3.4.2
@@ -56,7 +55,6 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
   - Yarn 1.5.1
   - NPM 5.6.0
   - PIP 9.0.1 and later upgraded to 18.0
-
 + Linux raspberrypi 4.9.76-v7+
 + Repository 
   - Development
