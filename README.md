@@ -228,18 +228,18 @@ o	Show current image being processed
 -	Apply the mask to the video stream image using cv2.bitwise_and
 -	Measure the color level in the range:
 -	If green is present:
--	Set DeadwoodPresentFlag
--	Return True
--	Else:
--	Return False
--	Reset()
+  -	Set DeadwoodPresentFlag
+  -	Return True
+  -	Else:
+   -	Return False
+   -	Reset()
 -	Arm movement, prior to the green pinsetter indicates a Reset.
 -	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
 -	Set ResetPresentFlag
 -	Set pinCount to 1023
 -	Return True
 -	Else:
--	Return False
+  -	Return False
 
 #### Send IoT messages
 This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
@@ -364,17 +364,21 @@ IOT to BLOB to PowerBi should just work.
 
 ## Appendix A – RPI Image setup
 1.	RPI Basics
+```
 a.	Most SDCards purchased with a RPI come with Raspbian installed.  Suggest that you update it first using the apt-get command above
 b.	To install Remote Desktop - $ sudo apt-get install xrdp
 c.	To get the RPI ip address - $ ifconfig
 d.	To map a drive for using Remote Desktop Connection
 i.	$ sudo apt-get install samba samba-common-bin
 ii.	edit smb.config per https://www.youtube.com/watch?v=4P5nEH9zGDI 
-2.	Node	
+```
+2.	Node
+```
 a.	The repo contains the version number.  As of this date version 9 is the latest node version for Linux.  In the final step, make sure that you get the version intended. To download and install a version of Node.js, use the following:
 i.	$ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 ii.	$ sudo apt-get install -y nodejs
 iii.	$ node -v
+```
 3.	Open CV – a lengthy process
 ```
 a.	sudo apt-get install build-essential git cmake pkg-config
@@ -409,6 +413,7 @@ cc.	sudo make install
 dd.	sudo ldconfig
 ```
 4.	Yarn
+```
 a.	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 b.	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 c.	sudo apt-get update && sudo apt-get install yarn
@@ -420,7 +425,9 @@ i.	sudo chmod u+x setup.sh
 ii.	sudo ./setup.sh
 iii.	You can also specify the version you want by running sudo ./setup.sh [--python-version|-p] [2.7|3.4|3.5]. 
 d.	If you run script without parameter, the script will automatically detect the version of python installed (Search sequence 2.7->3.4->3.5). Make sure your Python version keeps consistent during building and running.
-6.	VSCode - optional
+```
+6.	VSCode on the RPI - optional
+```
 a.	I’ve tried several tutorials on getting VSCode on a RPI.  The following works but it produces an annoying error  with every file change or save.
 i.	Install GPG key
 1.	sudo wget -qO - https://packagecloud.io/headmelted/codebuilds/gpgkey | sudo apt-key add -;
@@ -436,30 +443,31 @@ vi.	Supporting Links
 1.	Headmelted home page : https://code.headmelted.com
 2.	Package releases : https://packagecloud.io/headmelted/codebuilds
 3.	GPG key from : https://packagecloud.io/headmelted/codebuilds/gpgkey
+```
  
 ## Appendix B   GitHub
 1.	Create a GitHub repo
 2.	Create a folder on one of the local machines
-a.	Git init
-b.	Set remote - git remote add origin https://github.com/cliffeby/Duckpin2.git
-c.	Git pull origin master
-d.	Add files to local folder
-e.	Git add . or git add <filename>
-f.	Git push origin master or git push -u origin –all
+  - a.	Git init
+  - b.	Set remote - git remote add origin https://github.com/cliffeby/Duckpin2.git
+  - c.	Git pull origin master
+  - d.	Add files to local folder
+  - e.	Git add . or git add <filename>
+  - f.	Git push origin master or git push -u origin –all
 3.	Go to parent folder on second local cpu/folder
-a.	Git clone https://github.com/cliffeby/Duckpin2.git
+  - a.	Git clone https://github.com/cliffeby/Duckpin2.git
 4.	Go to parent folder on third local cpu/folder
-a.	Git clone https://github.com/cliffeby/Duckpin2.git
+  - a.	Git clone https://github.com/cliffeby/Duckpin2.git
 5.	Make a change to a file on any local cpu/folder
-a.	Git add
-b.	Git commit -m “message”
-c.	Git push origin master
+  - a.	Git add
+  - b.	Git commit -m “message”
+  - c.	Git push origin master
 6.	Use another local cpu/folder
-a.	Git pull origin master
-b.	Make changes
-c.	Git add
-d.	Git commit -m “message”
-e.	Git push origin master
+  - a.	Git pull origin master
+  - b.	Make changes
+  - c.	Git add
+  - d.	Git commit -m “message”
+  - e.	Git push origin master
 7.	If local repo is out of synch
 a.	Git checkout -- <filename>  will delete any local changes to the local instance of the file
 8.	Remove a file
