@@ -450,32 +450,29 @@ vi.	Supporting Links
 ## Appendix B   GitHub
 1.	Create a GitHub repo
 2.	Create a folder on one of the local machines
-  - a.	Git init
-  - b.	Set remote - git remote add origin https://github.com/cliffeby/Duckpin2.git
-  - c.	Git pull origin master
-  - d.	Add files to local folder
-  - e.	Git add . or git add <filename>
-  - f.	Git push origin master or git push -u origin –all
+  a.	Git init
+  b.	Set remote - git remote add origin https://github.com/cliffeby/Duckpin2.git
+  c.	Git pull origin master
+  d.	Add files to local folder
+  e.	Git add . or git add <filename>
+  f.	Git push origin master or git push -u origin –all
 3.	Go to parent folder on second local cpu/folder
-  - a.	Git clone https://github.com/cliffeby/Duckpin2.git
+  a.	Git clone https://github.com/cliffeby/Duckpin2.git
 4.	Go to parent folder on third local cpu/folder
-  - a.	Git clone https://github.com/cliffeby/Duckpin2.git
+  a.	Git clone https://github.com/cliffeby/Duckpin2.git
 5.	Make a change to a file on any local cpu/folder
-  - a.	Git add
-  - b.	Git commit -m “message”
-  - c.	Git push origin master
+  a.	Git add
+  b.	Git commit -m “message”
+  c.	Git push origin master
 6.	Use another local cpu/folder
-  - a.	Git pull origin master
-  - b.	Make changes
-  - c.	Git add
-  - d.	Git commit -m “message”
-  - e.	Git push origin master
+  a.	Git pull origin master
+  b.	Make changes
+  c.	Git add
+  d.	Git commit -m “message”
+  e.	Git push origin master
 7.	If local repo is out of synch
-a.	Git checkout -- <filename>  will delete any local changes to the local instance of the file
+  a.	Git checkout -- <filename>  will delete any local changes to the local instance of the file
 8.	Remove a file
-a.	Git rm -r “filename”
-b.	Git commit -m “deleted file”
-c.	Git push
-
-
- 
+  a.	Git rm -r “filename”
+  b.	Git commit -m “deleted file”
+  c.	Git push
