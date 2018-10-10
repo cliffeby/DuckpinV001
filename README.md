@@ -18,11 +18,11 @@ The pinsetters at Congressional Country Club are ancient.  They are controlled b
 
 
 ### _Background_
-#### Duckpins #
+#### _Duckpins_ #
 Regular duckpin bowling is popular in the northeastern and mid-Atlantic United States.  It is a variation of 10-pin bowling. The balls used in duckpin bowling are 4 3⁄4” to 5” in diameter (which is slightly larger than a softball), weigh 3 lbs, 6-12 oz each, and lack finger holes. They are thus significantly smaller than those used in ten-pin bowling but are slightly larger and heavier than those used in candlepin bowling. The pins, while arranged in a triangular fashion identical to that used in ten-pin bowling, are shorter, smaller, and lighter than their ten-pin equivalents, which makes it more difficult to achieve a strike. For this reason (and like candlepin bowling), the bowler is allowed three rolls per frame (as opposed to the two rolls per frame in ten-pin bowling).	
 
 The Sherman automatic pinsetter was developed in 1953 and the company ceased operation in 1973.  Existing operators are forced to cannibalize pinsetter parts from the bowling houses that close, often buying the machines and putting them into storage to use for spare parts. The lack of new pinsetters is a significant cause of the decline of duckpin bowling.
-#### CCC Duckpins #
+#### _CCC Duckpins_ #
 There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by [Ken Palmer](http://www.dpbatour.com/profile_palmer-kenny.htm) , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
 ### _Player/User Requests_
 In addition to lighting the Lucite numbers, there was a request to indicate the number of balls used during each frame.  If the ball can be reliably detected, a seven-segment LED display can be controlled by the RPI to indicate state.
@@ -31,7 +31,7 @@ User interest or requirements for the ball-pin interaction data is not known.  T
 
 Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
 ### _Tools_
-#### Hardware #
+####  _Hardware_ #
 + Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
 + Camera Video Module 5MP Webcam 1080p 720p $14
 + 12v 30a Dc Universal Regulated Switching Power Supply 360w
@@ -42,7 +42,7 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
 + SainSmart 8 and 4-Channel Relay Modules
 + 5” 7-segment LED for ball counts
 
-#### Software #
+#### _Software_ #
 + Raspbian GNU/Linux 8 (Jessie)
 + Python 3.4.2
 + Node v9.4.0
@@ -63,7 +63,7 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
   - Production 
     - TBD
 
-### The RPI image
+### _The RPI image_
 Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing the RPI in a case) and a backup would have saved a lot of time.
 
 I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y.  
@@ -105,7 +105,7 @@ Next was the use of GPIO pins on the RPI.  I started with the obligatory single 
 Finally, I turned to IoT to send a store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
 
 So far, so good.  On to the design process.
-### Hardware Design
+### _Hardware Design_
 I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules (Figure 2). Restrictions were:
 1.	Access to the RPI’s HDMI, USB, power, and GPIO connections
 2.	RPI – piCamera:  Standard piCamera ribbon cable is six inches and the piCamera also needs a mount.
@@ -119,7 +119,7 @@ Two led bulb forms were considered.  A five-watt equivalent, led T10 wedge bulbs
 
 Last, a 12-pin connector was considered for ease in removing the RPI and relays from the 10 led bulbs.  Making the 20+ crimps seemed tedious and the connector remains on the TODO list.
 ![Caption image](https://user-images.githubusercontent.com/1431998/46451115-af812900-c762-11e8-9fbe-6c0c9d611e0a.png)
-### Software Design
+### _Software Design_
 Duckpin bowling is unique in that the player is allowed three balls in each frame to knock down the 10 pins.  Unlike 10-pin bowling where the pinsetter is automatic after each thrown ball, duckpins requires the user to clear any deadwood that may remain on the alley.  Clearing deadwood is optional as it is often not needed. Also, manually initiated in duckpins is the reset all 10 pins.
 
 The headboard that displays the Lucite pin numbers is about six feet from pin #1 and the camera is mounted on its back facing the pins. It is a perfect location to view the deadwood and reset arm, the pinsetter motion, the ball before hitting the pins, and the pins that remain standing.
@@ -144,9 +144,9 @@ Best matches were obtained when a red filter was applied to the pin tops.  If th
 
 Since pins are either up or down, the 10-pin configuration was a value between 0 and 1023 (10 exp 2 = 1024).  Pin 1 (index [0]) has an up value of 512, Pin 2 (index [1]) an up value of 256… and Pin 10 (index [9]) an up value of 1.  The pin configuration number is simply the sum of the ten values or the binary string ranging from b1111111111 equal to 1023 and b0000000000 = 0.
 
-#### Initial thinking
+#### _Initial thinking_
 There are several triggers that can be used to recognize a changed state.  Since it is hoped that the camera can capture at least one frame as the ball moves through the pins and pins often fall seconds after the ball has passed through the pins, a completed pin configuration state must be recognized.  A bowler’s deadwood or reset action creates this completion notice, but if reset or deadwood is not needed, the subsequent ball’s presence or timers could create a completed status.
-#### Final concept
+#### _Final concept_
 The change in pin count is the primary trigger used for changing the state of the led bulbs and for sending data via IoT to blob storage.  A 1.5 second delay timer is used to capture the before and after state of the pins.
 ### _Early Considerations and Limitations_ #
 V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 framerate.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.  
@@ -186,30 +186,30 @@ My initial exploration of Python on an RPI showed the value of functions and the
 -	Imports
    -	IoT credentials: Keep access credentials out of the repo
     -	Import modules for
-    -	time, sys, and IO
-    -	Numpy
-    -	GPIO
-    -	OpenCV
-    -	piCamera
-    -	IoT functions
+      -	time, sys, and IO
+      -	Argv – assign defaults and values
+      -	Numpy
+      -	GPIO
+      -	OpenCV
+      -	piCamera
+      -	IoT functions
     -	Functions that are infrequently used can be imported and not directly listed in the main code.
--	Argv – assign defaults and values
--	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.  The ability to turn these functions off and on is helpful.  
+    -	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.  The ability to turn these functions off and on is helpful.  
 
-Functions that I used were:
--	Capture a number(X) of images at a certain time or frame count(Y)
--	Capture a video stream for (X) seconds at a certain time or frame count (Y)
--	Show current image being processed
-  *	Full image with crop locations/coordinates
-  *	Cropped image with annotations for xy corners
+Functions that I used often were:
+-	Capture a number(X) of images at a certain time or frame count(Y)  
+-	Capture a video stream for (X) seconds at a certain time or frame count (Y)  
+-	Show current image being processed  
+    *	Full image with crop locations/coordinates
+    *	Cropped image with annotations for xy corners
 -	Pin Count and lighting leds – Two simple functions
-  -	pinCount
-      -	If red band in cropped pin location exceeds threshold value, sum pin count + (2 exp (9-pin location index))
+    -	pinCount
+       -	If red band in cropped pin location exceeds threshold value, sum pin count + (2 exp (9-pin location index))
   -	LightLeds()
-      -	Convert pin count to a binary string X
-      -	Loop through X and GPIO pin array index [X]
-	-	If 1, turn GPIO to HIGH
-	-	If 0, turn GPIO to LOW
+       -	Convert pin count to a binary string X
+       -	Loop through X and GPIO pin array index [X]
+       -        If 1, turn GPIO to HIGH
+       -	If 0, turn GPIO to LOW  
 #### Find Standing Pins -  findPins()
    -	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
