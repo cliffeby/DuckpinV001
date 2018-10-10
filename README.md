@@ -361,7 +361,7 @@ Research:
 
 [https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/](https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/)
 
-[https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/]([https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/)
+[https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/](https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/)
 
 [https://azure.microsoft.com/en-us/blog/how-to-use-azure-functions-with-iot-hub-message-routing/](https://azure.microsoft.com/en-us/blog/how-to-use-azure-functions-with-iot-hub-message-routing/)
 
