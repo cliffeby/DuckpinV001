@@ -194,9 +194,9 @@ My initial exploration of Python on an RPI showed the value of functions and the
     -	IoT functions
     -	Functions that are infrequently used can be imported and not directly listed in the main code.
 -	Argv – assign defaults and values
--	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.
+-	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.  The ability to turn these functions off and on is helpful.  
 
-The ability to turn these functions off and on is helpful.  Functions that I used were:
+Functions that I used were:
 -	Capture a number(X) of images at a certain time or frame count(Y)
 -	Capture a video stream for (X) seconds at a certain time or frame count (Y)
 -	Show current image being processed
