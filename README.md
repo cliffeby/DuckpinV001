@@ -452,7 +452,7 @@ vi.	Supporting Links
     3.	GPG key from : https://packagecloud.io/headmelted/codebuilds/gpgkey
 ```
  
-## Appendix B   GitHub
+## Appendix B -  GitHub
 1.	Create a GitHub repo
 2.	Create a folder on one of the local machines
   -	Git init
