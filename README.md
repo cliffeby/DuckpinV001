@@ -184,15 +184,15 @@ My initial exploration of Python on an RPI showed the value of functions and the
 -	Ball monitoring
   -	I used Paint and Excel to create crop ranges.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
 -	Imports
-  -	IoT credentials: Keep access credentials out of the repo
-  -	Import modules for
-  -	time, sys, and IO
-  -	Numpy
-  -	GPIO
-  -	OpenCV
-  -	piCamera
-  -	IoT functions
-  -	Functions that are infrequently used can be imported and not directly listed in the main code.
+   -	IoT credentials: Keep access credentials out of the repo
+    -	Import modules for
+    -	time, sys, and IO
+    -	Numpy
+    -	GPIO
+    -	OpenCV
+    -	piCamera
+    -	IoT functions
+    -	Functions that are infrequently used can be imported and not directly listed in the main code.
 -	Argv – assign defaults and values
 -	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.
 
