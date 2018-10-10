@@ -298,7 +298,7 @@ This function can be called on any change in pin configuration.  Initially, the 
 
 ### In Production
 #### Headless:
-In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading Five Ways To Run a Program On Your Raspberry Pi At Startup , I chose to use systemd  files.  If you use absolute paths to locate your files, the technique works well.
+In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading [Five Ways To Run a Program On Your Raspberry Pi At Startup](https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/) , I chose to use systemd files.  If you use absolute paths to locate your files, the technique works well.
 The commands:
 ```
 sudo systemctl daemon-reload
@@ -309,7 +309,8 @@ sudo systemctl stop sample.service
 and ps aux 
 ```
 provide the tools to debug startup issues.
-SD card or RAM disk:  Several blogs referenced a limited life of SD cards that are in a write, read, delete and repeat loop.    Extending the life of the SD card  shows how to use ram storage for these temporary files.  
+#### SD card or RAM disk:
+Several blogs referenced a limited life of SD cards that are in a write, read, delete and repeat loop. [Extending the life of the SD card](https://www.makeuseof.com/tag/extend-life-raspberry-pis-sd-card/) shows how to use ram storage for these temporary files.  
 ```
 #!/bin/bash
 sudo mkdir -p /ram
