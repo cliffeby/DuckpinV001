@@ -62,10 +62,12 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
   - Production 
     + TBD
 
-### _The RPI image and how_
+### _The RPI image
 Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing the RPI in a case) and a backup would have saved a lot of time.
 
-I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y.  Appendix A contains hints on the image setup and issues that I encountered.
+I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y.  
+
+Appendix A contains hints on the image setup and issues that I encountered.
 
 ### _Where to start?_
 Several online video tutorials show an RPI with a standard 1080p camera module able to achieve multiple (maybe over 40) frames per second video processing throughput.  Relays connected to the GPIO pins should be able to switch/light 10 led bulbs using an external 12vdc power supply.  Azure and AWS have RPI SDKs.  It seems like all the pieces are there, but can it all come together to be more than a “classroom” or “demo” project.
@@ -79,7 +81,7 @@ On a RPI, typically two major Python versions are installed.  I stuck with Versi
 
 The RPI is an amazing piece of hardware for $35, but I prefer to use my desktop for coding and research.  When I loaded Python to my desktop, I installed Python version 3.6.2.  It installed to Programs\Python\Python36-32 and was added to the path so that the `>python` starts the Python3 interpreter.  I did not have issues with portability between the two Python3 versions.
 
-Python syntax was a little new (see Wikipedia page  and this online book  for a good language summary). My first programs were to understand the control/looping syntax and data structures - dictionaries, lists, generators, and tuples. The default IDE on the RPI is IDLE but it is short on features.  I tried installations of Webstorm and Visual Studio Code and settled on VSCode despite the previously referenced error on an RPI.  VSCode also consumes considerably more resources than IDLE, so IDLE was often used when only minor changes were expected.  
+Python syntax was a little new (see [Wikipedia page](https://en.wikipedia.org/wiki/Python_(programming_language)) and this [online book](https://python.swaroopch.com/) for a good language summary). My first programs were to understand the control/looping syntax and data structures - dictionaries, lists, generators, and tuples. The default IDE on the RPI is IDLE but it is short on features.  I tried installations of Webstorm and Visual Studio Code and settled on VSCode despite the previously referenced error on an RPI.  Also, VSCode consumes considerably more resources than IDLE, so IDLE was often used when only minor changes were expected.  
 
 OpenCV was next and early efforts were to grab a frame from a video stream, analyze it, and save it to a file.  Some tutorials offered a video file for experimentation, so I started with my desktop development instance and moved to the RPI piCamera after some experimentation.  Recognizing that I would not want to do most of development sitting next to the pinsetter, I used the camera to capture representative video for subsequent development.  But this created two code bases, one with video from a file and a second with video streamed from the camera.
 
@@ -102,7 +104,7 @@ Next was the use of GPIO pins on the RPI.  I started with the obligatory single 
 Finally, I turned to IoT to send a store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
 
 So far, so good.  On to the design process.
-### Hardware Design #
+### Hardware Design
 I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules (Figure 2). Restrictions were:
 1.	Access to the RPI’s HDMI, USB, power, and GPIO connections
 2.	RPI – piCamera:  Standard piCamera ribbon cable is six inches and the piCamera also needs a mount.
@@ -133,13 +135,18 @@ Data package ready |	Send IoT data to Cloud
 
 OpenCV typically uses a mask approach to detect motion or changes between two frames of video.  The first frame is subtracted from the second and differences are highlighted.  This approach works well for frame by frame video detecting a ball moving toward the pins and both deadwood and reset pinsetter activities. 
 
-To detect presence of a specific pin, individual pin pattern matching was attempted but found to offer poor results.  Due to varying distance from the camera the pins were different sizes; back pins were obscured; and reflections often created false positives.   The pin tops were tried to eliminate the size, reflection, and obscurity issues, but matching was inconsistent.  ![image](https://user-images.githubusercontent.com/1431998/46577920-b9ec2e80-c9bf-11e8-98c2-6cab259b27a5.png) 
+To detect presence of a specific pin, individual pin pattern matching was attempted but found to offer poor results.  Due to varying distance from the camera the pins were different sizes; back pins were obscured; and reflections often created false positives.   The pin tops were tried to eliminate the size, reflection, and obscurity issues, but matching was inconsistent.  
+
+![image](https://user-images.githubusercontent.com/1431998/46577920-b9ec2e80-c9bf-11e8-98c2-6cab259b27a5.png) 
 
 Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often "cropped" to improve speed and edge conditions.
 
 Since pins are either up or down, the 10-pin configuration was a value between 0 and 1023 (10 exp 2 = 1024).  Pin 1 (index [0]) has an up value of 512, Pin 2 (index [1]) an up value of 256… and Pin 10 (index [9]) an up value of 1.  The pin configuration number is simply the sum of the ten values or the binary string ranging from b1111111111 equal to 1023 and b0000000000 = 0.
 
+#### Initial thinking
 There are several triggers that can be used to recognize a changed state.  Since it is hoped that the camera can capture at least one frame as the ball moves through the pins and pins often fall seconds after the ball has passed through the pins, a completed pin configuration state must be recognized.  A bowler’s deadwood or reset action creates this completion notice, but if reset or deadwood is not needed, the subsequent ball’s presence or timers could create a completed status.
+#### Final concept
+The change in pin count is the primary trigger used for changing the state of the led bulbs and for sending data via IoT to blob storage.  A 1.5 second delay timer is used to capture the before and after state of the pins.
 ### _Early Considerations and Limitations_ #
 V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 framerate.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.  
 
@@ -163,83 +170,82 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 #### Setup
 My initial exploration of Python on an RPI showed the value of functions and the need for configuration settings.  Early efforts focused on:
 -	Camera settings
-  o	Resolution, framerate and field of view relationships 
-  o	Rotation
-  o	Brightness
+   -	Resolution, framerate and field of view relationships 
+   -	Rotation
+   -	Brightness
 -	GPIO pins
-  o	Tell RPI which GPIO pins are active
-  o	Assign duckpin pin value (1-10) to a GPIO pin value
+  -	Tell RPI which GPIO pins are active
+  -	Assign duckpin pin value (1-10) to a GPIO pin value
 -	Crop Ranges to minimize the amount of processing for each image.  
-  o	For each resolution
-    -	Pin locations
-    -	Reset arm and deadwood motion detection locations
-    -	Ball monitoring
-  o	I used Paint and Excel to create crop ranges.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
+  - 	For each resolution
+     -	Pin locations
+     -	Reset arm and deadwood motion detection locations
+-	Ball monitoring
+  -	I used Paint and Excel to create crop ranges.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
 -	Imports
- o	IoT credentials: Keep access credentials out of the repo
- o	Import modules for
+  -	IoT credentials: Keep access credentials out of the repo
+  -	Import modules for
   -	time, sys, and IO
   -	Numpy
   -	GPIO
   -	OpenCV
   -	piCamera
   -	IoT functions
- o	Functions that are infrequently used can be imported and not directly listed in the main code.
+  -	Functions that are infrequently used can be imported and not directly listed in the main code.
 -	Argv – assign defaults and values
 -	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.
 
 The ability to turn these functions off and on is helpful.  Functions that I used were:
-o	Capture a number(X) of images at a certain time or frame count(Y)
-o	Capture a video stream for (X) seconds at a certain time or frame count (Y)
-o	Show current image being processed
+-	Capture a number(X) of images at a certain time or frame count(Y)
+-	Capture a video stream for (X) seconds at a certain time or frame count (Y)
+-	Show current image being processed
   -	Full image with crop locations/coordinates
   -	Cropped image with annotations for xy corners
-  -	Pin Count and lighting leds – Two simple functions
-    o	pinCount
-      -	If red band in cropped pin location exceeds threshold value:
-      -	Sum pin count + (2 exp (9-pin location index))
-   o	LightLeds()
+-	Pin Count and lighting leds – Two simple functions
+  -	pinCount
+      -	If red band in cropped pin location exceeds threshold value, sum pin count + (2 exp (9-pin location index))
+  -	LightLeds()
       -	Convert pin count to a binary string X
       -	Loop through X and GPIO pin array index [X]
 	-	If 1, turn GPIO to HIGH
 	-	If 0, turn GPIO to LOW
 #### Find Standing Pins
 -	findPins()
- o	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
+  -	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
    -	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
--	Create a red mask using the previously described crops and the cv2.inRange function
--	Apply the mask to the video stream image using cv2.bitwise_and
--       For each pin location, defined by a specific cropped range, measure the color level in the range:
-  -	If red is present:
-    -	Sum pinCount
-    -	Compare sum to prior pinCount
-    -	If changed, record as desired.
+   -	Create a red mask using the previously described crops and the cv2.inRange function
+   -	Apply the mask to the video stream image using cv2.bitwise_and
+   -    For each pin location, defined by a specific cropped range, measure the color level in the range:
+     - If red is present:
+       -	Sum pinCount
+       -	Compare sum to prior pinCount
+       -	If changed, record as desired.
 
--	Pinsetter Deadwood() and Reset()
--	A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
+#### Pinsetter Deadwood() and Reset()
+A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
 -	Deadwood()
--	Detect a large green mass moving from the top
--	Create arrays of green colors for green mask.
--	Create a numpy array for the RGB high and low values
--	MS Paint worked well to pick the green RGB values from images in the video streams.  
--	Create a green mask using the cv2.inRange function
--	Apply the mask to the video stream image using cv2.bitwise_and
--	Measure the color level in the range:
--	If green is present:
-  -	Set DeadwoodPresentFlag
-  -	Return True
+  -	Detect a large green mass moving from the top
+  -	Create arrays of green colors for green mask.
+  -	Create a numpy array for the RGB high and low values
+  -	MS Paint worked well to pick the green RGB values from images in the video streams.  
+  -	Create a green mask using the cv2.inRange function
+  -	Apply the mask to the video stream image using cv2.bitwise_and
+  -	Measure the color level in the range:
+    -	If green is present:
+       -	Set DeadwoodPresentFlag
+       -	Return True
+       -	Else:
+       -	Return False
+-	Reset()
+  -	Arm movement, prior to the green pinsetter indicates a Reset.
+  -	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
+    -	Set ResetPresentFlag
+    -	Set pinCount to 1023
+    -	Return True
   -	Else:
-   -	Return False
-   -	Reset()
--	Arm movement, prior to the green pinsetter indicates a Reset.
--	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
--	Set ResetPresentFlag
--	Set pinCount to 1023
--	Return True
--	Else:
-  -	Return False
+    -	Return False
 
 #### Send IoT messages
 This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
@@ -249,45 +255,44 @@ This function can be called on any change in pin configuration.  Initially, the 
 -	Send the message
 -	Report acceptance and error callback conditions 
 
--	The Main loop
+#### The Main loop
   -	Initialize the camera, GPIO pins, counters and values
   -	Allow camera to warm up
   -	Create a mask for the ball detection area from a stored image
-    o	Grab a frame from the camera stream
-    o	Crop frame to mask dimensions for ball detection
-    o	Convert mask and next frame to GRAY using cv2.cvtColor
-    o	Detect the difference between the two gray images use cv2.absdiff
-      =	This difference is an array not an image
-      o	Use cv2.threshold to convert to black or white image
-      o	Use cv2.medianBlur to reduce noise
-      o	Use cv2.findContours find and locate objects
-      o	For objects found:
-       =	Find the biggest circle present using max(objects, key = cv2.countourArea)
-       =	Use cv2.minEnclosingCircle to determine radius and xy location
-       =	If radius is significant:
-       •	A few alternatives–
-o	RPI processing
-	Save ball xy data
-	Get next frame as quickly as possible.  [This is an important performance issue.  Other processes can wait while we get as much ball motion as possible.]
-o	Use RPI buffer and send it via IoT to blob storage
-	Process video stream off line
-•	Azure function, VM, or local computer to process video.
-	Process video stream during low CPU usage
-o	If no object found:
-	Check for a pinsetter Reset and process
-	Check for a pinsetter Deadwood and process
-	findPins()
--	Post processing
-o	Get video files from Azure blob storage
-o	Process the files saving the xy centroid data described above
-o	Format that data as json and create an Azure table storage entry.
-o	Send to Azure Table storage
--	Data Analysis
-o	Import the Azure table storage to Excel
-	Azure storage explorer offers a csv export function.
-	Excel power query has a feature to put Azure tables directly in Excel
-o	Using Excel, create a quick template to analyze the relative speed of the ball and the amount of lateral movement as it approaches the pins.
-o	More data are needed to determine the accuracy of the camera and centroid calculation at various speeds.  While the camera pixel is about 1/1300 of 4 feet, it is not a certainty that the centroid calculation offers this accuracy.
+    -	Grab a frame from the camera stream
+    -	Crop frame to mask dimensions for ball detection
+    -	Convert mask and next frame to GRAY using cv2.cvtColor
+    -	Detect the difference between the two gray images use cv2.absdiff.  This difference is an array not an image
+    -	Use cv2.threshold to convert to black or white image
+    - 	Use cv2.medianBlur to reduce noise
+    -	Use cv2.findContours find and locate objects
+    -	For objects found:
+       -	Find the biggest circle present using max(objects, key = cv2.countourArea)
+       -	Use cv2.minEnclosingCircle to determine radius and xy location
+       - 	If radius is significant:
+          -	A few alternatives–
+             -	RPI processing:
+               -	Save ball xy data
+               -	Get next frame as quickly as possible.  [This is an important performance issue.  Other processes can wait while we get as much ball motion as possible.]
+	     -	Use RPI buffer and send it via IoT to blob storage
+	        - Process video stream off line
+                   - Azure function, VM, or local computer to process video.
+                -  Process video stream during low CPU usage (can this be detected or is threasing an option?)
+     -	If no object found:
+	-  Check for a pinsetter Reset and process
+        -  Check for a pinsetter Deadwood and process
+        -  findPins()
+#### Post processing
+- 	Get video files from Azure blob storage
+- 	Process the files saving the xy centroid data described above
+- 	Format that data as json and create an Azure table storage entry.
+- 	Send to Azure Table storage
+#### Data Analysis
+-  Import the Azure table storage to Excel
+-  Azure storage explorer offers a csv export function.
+-  Excel power query has a feature to put Azure tables directly in Excel
+-  Using Excel, create a quick template to analyze the relative speed of the ball and the amount of lateral movement as it approaches the pins.
+-  More data are needed to determine the accuracy of the camera and centroid calculation at various speeds.  While the camera pixel is about 1/1300 of 4 feet, it is not a certainty that the centroid calculation offers this accuracy.
 
 ### In Production
 #### Headless:
@@ -315,12 +320,15 @@ tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
 #### Logging:  
 Programs started by systemd do not have a console for printing.  Python’s `import logging` is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
 ### Code Repo  Duckpin2 in GitHub  - pull requests accepted.
-This repo contains all the code to learn Python and understanding video frame processing.  The key files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `imports` to keep the code length reasonable.  These file `imports` must be in the same folder as the DPBoot.py file.  
+This repo contains all the code to learn Python and understanding video frame processing.  The key "production" files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `imports` to keep the code length reasonable.  These file `imports` must be in the same folder as the DPBoot.py file.  
 
-The second file is the post processing file that I run when blobs are present in Azure Blob Storage.  I had hoped to use an Azure function for this processing, but have yet to find OpenCV in Azure functions.  Also, I'm am not aware of an cheap vm process that i can schedule to run daily.  At present, I run it nightly on my desktop. 
+The second file is the post processing file that I run when blobs are present in Azure Blob Storage.  I had hoped to use an Azure function for this processing, but have yet to find the needed OpenCV functions in Azure functions.  Also, I'm am not aware of an cheap vm process that I can schedule to run daily.  At present, I run it nightly on my desktop. 
 ### Challenges
-I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.  
+I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.
+
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
+
+I expected that JSON stroed in blob storage could be easily downloaded and analyzed by PowerBI or Power Query.  I didn't find either to be straight forward.
 ### Results
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
 
@@ -328,7 +336,7 @@ The images below show the contours of the ball detected as it moves toward the p
 
 [![VIDEO](http://img.youtube.com/vi/8zUnTeoKMoY/0.jpg)](http://www.youtube.com/watch?v=8zUnTeoKMoY)
 
-The text below is output from the post processing effort this single video.  This JSON formatted data is entered in an Azure table.
+The text below is output from the post processing effort this single video.  The centroid of the largest contour in each frame is captured as an xy pair.  This JSON formatted data is entered in an Azure table.
 
 `>Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', >'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'}` 
 
@@ -344,8 +352,6 @@ Blob storage content can be viewed and downloaded directly in the Azure Portal; 
 An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel).  It is a very simple tool to sort and filter the data for initial understanding of what may be possible with the data.  I will provide access to the table data for any interested party.
 
 ### Resources
-
-
 
 Research
 https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/
