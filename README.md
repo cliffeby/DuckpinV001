@@ -40,7 +40,8 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
   - DWVO Superbright 1156 LED Light Bulb
 + 1156 BA15s LED Light Bulb Socket Holder
 + SainSmart 8 and 4-Channel Relay Modules
-+ 5” 7-segment LED for ball counts	
++ 5” 7-segment LED for ball counts
+
 #### Software #
 + Raspbian GNU/Linux 8 (Jessie)
 + Python 3.4.2
@@ -58,11 +59,11 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
 + Linux raspberrypi 4.9.76-v7+
 + Repository 
   - Development
-    + Git and GitHub – repos at https://github.com/cliffeby/duckpin2
+    - Git and GitHub – repos at https://github.com/cliffeby/duckpin2
   - Production 
-    + TBD
+    - TBD
 
-### _The RPI image
+### The RPI image
 Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing the RPI in a case) and a backup would have saved a lot of time.
 
 I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y.  
@@ -234,10 +235,10 @@ A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear t
   -	Apply the mask to the video stream image using cv2.bitwise_and
   -	Measure the color level in the range:
     -	If green is present:
-       -	Set DeadwoodPresentFlag
-       -	Return True
-       -	Else:
-       -	Return False
+        - Set DeadwoodPresentFlag
+        - Return True
+     -  Else:
+        - Return False
 -	Reset()
   -	Arm movement, prior to the green pinsetter indicates a Reset.
   -	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
@@ -282,11 +283,13 @@ This function can be called on any change in pin configuration.  Initially, the 
 	-  Check for a pinsetter Reset and process
         -  Check for a pinsetter Deadwood and process
         -  findPins()
+	
 #### Post processing
 - 	Get video files from Azure blob storage
 - 	Process the files saving the xy centroid data described above
 - 	Format that data as json and create an Azure table storage entry.
 - 	Send to Azure Table storage
+
 #### Data Analysis
 -  Import the Azure table storage to Excel
 -  Azure storage explorer offers a csv export function.
@@ -363,10 +366,6 @@ https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py
 Scheduling
 https://www.raspberrypi.org/documentation/linux/usage/cron.md
 sudo apt-get install gnome-schedule
-
-
-Message Pack vs Apache AVRO vs CSV
-IOT to BLOB to PowerBi should just work.
 
 ## Appendix A – RPI Image setup
 1.	RPI Basics
