@@ -200,8 +200,8 @@ Functions that I used were:
 -	Capture a number(X) of images at a certain time or frame count(Y)
 -	Capture a video stream for (X) seconds at a certain time or frame count (Y)
 -	Show current image being processed
-  -	Full image with crop locations/coordinates
-  -	Cropped image with annotations for xy corners
+  *	Full image with crop locations/coordinates
+  *	Cropped image with annotations for xy corners
 -	Pin Count and lighting leds – Two simple functions
   -	pinCount
       -	If red band in cropped pin location exceeds threshold value, sum pin count + (2 exp (9-pin location index))
@@ -323,7 +323,7 @@ tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
 #### Logging:  
 Programs started by systemd do not have a console for printing.  Python’s `import logging` is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
 ### Code Repo:  Duckpin2 in GitHub  - pull requests accepted.
-This [repo](https://github.com/cliffeby/Duckpin2) contains all the code that i used to learn Python and understanding video frame processing.  The key "production" files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `imports` to keep the code length reasonable.)  These file `imports` must be in the same folder as the DPBoot.py file.  
+This [repo](https://github.com/cliffeby/Duckpin2) contains all the code that I used while learning Python and understanding video frame processing.  The key "production" files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `imports` to keep the code length reasonable and that these file `imports` must be in the same folder as the DPBoot.py file.)  
 
 The second file is the post processing file that I run when blobs are present in Azure Blob Storage.  I had hoped to use an Azure function for this processing, but have yet to find the needed OpenCV functions in Azure functions.  Also, I'm am not aware of an cheap vm process that I can schedule to run daily.  At present, I run it nightly on my desktop. 
 ### Challenges
