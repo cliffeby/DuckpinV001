@@ -291,10 +291,10 @@ This function can be called on any change in pin configuration.  Initially, the 
 
 #### Data Analysis
 -  Import the Azure table storage to Excel
--  Azure storage explorer offers a csv export function.
--  Excel power query has a feature to put Azure tables directly in Excel
+  -  Azure Storage Explorer offers a csv export function.
+  -  Excel power query has a feature to put Azure tables directly in Excel
 -  Using Excel, create a quick template to analyze the relative speed of the ball and the amount of lateral movement as it approaches the pins.
--  More data are needed to determine the accuracy of the camera and centroid calculation at various speeds.  While the camera pixel is about 1/1300 of 4 feet, it is not a certainty that the centroid calculation offers this accuracy.
+-  More data are needed to determine the accuracy of the camera and centroid calculation at various speeds.  While the camera pixel is about 1/1300 of 4 feet (about 1mm), it is not a certainty that the centroid calculation offers this accuracy.
 
 ### In Production
 #### Headless:
