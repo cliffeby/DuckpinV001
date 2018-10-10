@@ -168,7 +168,7 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 4.	Where video was saved in a buffer during processing for pin and ball recognition, the ball was present in at least three to five frames.  That same code was unable to reliably capture a single frame with a ball in real time.  This reinforces the conclusion that by the time the code finished other calculations in the loop, the frames which contained the ball were no longer present.
 
 ### _Pseudocode and why_
-#### Setup
+#### _Setup_
 My initial exploration of Python on an RPI showed the value of functions and the need for configuration settings.  Early efforts focused on:
 -	Camera settings
    -	Resolution, framerate and field of view relationships 
@@ -210,7 +210,7 @@ Functions that I used often were:
        -	Loop through X and GPIO pin array index [X]
        -        If 1, turn GPIO to HIGH
        -	If 0, turn GPIO to LOW  
-#### Find Standing Pins -  findPins()
+#### _Find Standing Pins -  findPins()_
    -	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
    -	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
@@ -223,7 +223,7 @@ Functions that I used often were:
          -	Compare sum to prior pinCount
          -	If changed, record as desired.
 
-#### Pinsetter Deadwood() and Reset()
+#### _Pinsetter Deadwood() and Reset()_
 A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
 -	Deadwood()
   -  Detect a large green mass moving from the top
@@ -247,7 +247,7 @@ A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear t
   -	Else:
      -	Return False
 
-#### Send IoT messages
+#### _Send IoT messages_
 This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
 -	Initialize the iot client
 -	Save captured video to a RAM file
@@ -255,7 +255,7 @@ This function can be called on any change in pin configuration.  Initially, the 
 -	Send the message
 -	Report acceptance and error callback conditions 
 
-#### The Main loop
+#### _The Main loop_
   -	Initialize the camera, GPIO pins, counters and values
   -	Allow camera to warm up
   -	Create a mask for the ball detection area from a stored image
@@ -283,21 +283,21 @@ This function can be called on any change in pin configuration.  Initially, the 
         -  Check for a pinsetter Deadwood and process
         -  findPins()
 	
-#### Post processing
+#### _Post processing_
 - 	Get video files from Azure blob storage
 - 	Process the files saving the xy centroid data described above
 - 	Format that data as json and create an Azure table storage entry.
 - 	Send to Azure Table storage
 
-#### Data Analysis
+#### _Data Analysis_
 -  Import the Azure table storage to Excel
   -  Azure Storage Explorer offers a csv export function.
   -  Excel power query has a feature to put Azure tables directly in Excel
 -  Using Excel, create a quick template to analyze the relative speed of the ball and the amount of lateral movement as it approaches the pins.
 -  More data are needed to determine the accuracy of the camera and centroid calculation at various speeds.  While the camera pixel is about 1/1300 of 4 feet (about 1mm), it is not a certainty that the centroid calculation offers this accuracy.
 
-### In Production
-#### Headless:
+### _In Production_
+#### _Headless:_
 In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading [Five Ways To Run a Program On Your Raspberry Pi At Startup](https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/) , I chose to use systemd files.  If you use absolute paths to locate your files, the technique works well.
 The commands:
 ```
@@ -309,7 +309,7 @@ sudo systemctl stop sample.service
 and ps aux 
 ```
 provide the tools to debug startup issues.
-#### SD card or RAM disk:
+#### _SD card or RAM disk:_
 Several blogs referenced a limited life of SD cards that are in a write, read, delete and repeat loop. [Extending the life of the SD card](https://www.makeuseof.com/tag/extend-life-raspberry-pis-sd-card/) shows how to use ram storage for these temporary files.  
 ```
 #!/bin/bash
@@ -320,19 +320,19 @@ Add this line to /etc/fstab.  It mounts a folder to RAM, where 777 specifies fil
 ```
 tmpfs   /dp/log    tmpfs    defaults,noatime,nosuid,mode=0777,size=100m    0 0
 ```
-#### Logging:  
+#### _Logging:_  
 Programs started by systemd do not have a console for printing.  Python’s `import logging` is a fully developed logging system for recording performance information.  Logging remains a TODO item.  Concerns are the affect of IO operations on the frame capture performance and where to store the logs (SD, RAM, or IoT).  
-### Code Repo:  Duckpin2 in GitHub  - pull requests accepted.
+### _Code Repo:  Duckpin2 in GitHub  - pull requests accepted_
 This [repo](https://github.com/cliffeby/Duckpin2) contains all the code that I used while learning Python and understanding video frame processing.  The key "production" files are DPBoot.py and its imports and blobtoCount.py.  The first is the file that boots via systemd on RPI startup (note the use of `imports` to keep the code length reasonable and that these file `imports` must be in the same folder as the DPBoot.py file.)  
 
 The second file is the post processing file that I run when blobs are present in Azure Blob Storage.  I had hoped to use an Azure function for this processing, but have yet to find the needed OpenCV functions in Azure functions.  Also, I'm am not aware of an cheap vm process that I can schedule to run daily.  At present, I run it nightly on my desktop. 
-### Challenges
+### _Challenges_
 I was unable to get framerates high enough to capture two clear observations of a fast-moving ball.  I concluded that ball capture may be best handled as a deferred process.  Since repeated overwriting of video files in particular could damage the SD Card, I opted to send the video files from a RAM disk file via IoT to Blob storage for nightly processing.  I’d like to use Azure functions for this processing, but I haven’t found a simple OpenCV installation for a function.  A VM or old desktop were next.
 
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
 
 I expected that JSON stroed in blob storage could be easily downloaded and analyzed by PowerBI or Power Query.  I didn't find either to be straight forward.
-### Results
+### _Results_
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
 
 The images below show the contours of the ball detected as it moves toward the pins.  The video that produced these contours can be viewed by clicking the image below.
@@ -351,10 +351,10 @@ The text below is output from the post processing effort this single video.  The
 Blob storage content can be viewed and downloaded directly in the Azure Portal; Table data cannot.  I find that Azure Storage Explorer is the best tool for viewing, editing or downloading bolbs and tables.
 ![image](https://user-images.githubusercontent.com/1431998/46670789-1f4b4580-cba1-11e8-9e96-cec890f5df40.png)
 
-### Analysis
+### _Analysis_
 An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel).  It is a very simple tool to sort and filter the data for initial understanding of what may be possible with the data.  I will provide access to the table data for any interested party.
 
-### Resources
+### _Resources_
 
 Research:
 
