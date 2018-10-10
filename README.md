@@ -210,19 +210,18 @@ Functions that I used were:
       -	Loop through X and GPIO pin array index [X]
 	-	If 1, turn GPIO to HIGH
 	-	If 0, turn GPIO to LOW
-#### Find Standing Pins
--	findPins()
-  -	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
+#### Find Standing Pins -  findPins()
+   -	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
    -	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
    -	Create a red mask using the previously described crops and the cv2.inRange function
    -	Apply the mask to the video stream image using cv2.bitwise_and
    -    For each pin location, defined by a specific cropped range, measure the color level in the range:
-     - If red is present:
-       -	Sum pinCount
-       -	Compare sum to prior pinCount
-       -	If changed, record as desired.
+      - If red is present:
+         -	Sum pinCount
+         -	Compare sum to prior pinCount
+         -	If changed, record as desired.
 
 #### Pinsetter Deadwood() and Reset()
 A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
