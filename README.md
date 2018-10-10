@@ -357,21 +357,21 @@ An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://one
 
 Research:
 
-https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/
+[https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/]
 
-https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/
+[https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/]
 
-https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/
+[https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/]
 
-https://azure.microsoft.com/en-us/blog/how-to-use-azure-functions-with-iot-hub-message-routing/
+[https://azure.microsoft.com/en-us/blog/how-to-use-azure-functions-with-iot-hub-message-routing/]
 
-http://www.nightbluefruit.com/blog/2013/02/how-to-use-git-to-maintain-code-between-2-computers/
+[http://www.nightbluefruit.com/blog/2013/02/how-to-use-git-to-maintain-code-between-2-computers/]
 
-https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py_lucas_kanade/py_lucas_kanade.html#lucas-kanade
+[https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py_lucas_kanade/py_lucas_kanade.html#lucas-kanade]
 
 Scheduling:
 
-https://www.raspberrypi.org/documentation/linux/usage/cron.md
+[https://www.raspberrypi.org/documentation/linux/usage/cron.md]
 sudo apt-get install gnome-schedule
 
 ## Appendix A – RPI Image setup
