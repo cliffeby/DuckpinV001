@@ -233,19 +233,19 @@ A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear t
   -	Create a green mask using the cv2.inRange function
   -	Apply the mask to the video stream image using cv2.bitwise_and
   -	Measure the color level in the range:
-    -	If green is present:
-        - Set DeadwoodPresentFlag
-        - Return True
-     -  Else:
+  -	If green is present:
+       - Set DeadwoodPresentFlag
+       - Return True
+  -  Else:
         - Return False
 -	Reset()
-  -	Arm movement, prior to the green pinsetter indicates a Reset.
-  -	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
-    -	Set ResetPresentFlag
-    -	Set pinCount to 1023
-    -	Return True
+   -	Arm movement, prior to the green pinsetter indicates a Reset.
+   -	Detect arm movement in a frame by looking for a green moving object that is not a ball. If arm is present:
+     -	Set ResetPresentFlag
+     -	Set pinCount to 1023
+     -	Return True
   -	Else:
-    -	Return False
+     -	Return False
 
 #### Send IoT messages
 This function can be called on any change in pin configuration.  Initially, the function is sending video files of any change to any 10-pin start of a frame.  A 2M video file, captures about two seconds of activity.    The Python IoT SDK contains samples with helper functions.  These helper functions are needed and were refactored and Import-ed.
