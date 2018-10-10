@@ -357,7 +357,7 @@ An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://one
 
 Research:
 
-[https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/]
+[https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/](https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/)
 
 [https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/]
 
