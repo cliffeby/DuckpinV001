@@ -226,7 +226,7 @@ Functions that I used were:
 #### Pinsetter Deadwood() and Reset()
 A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
 -	Deadwood()
-  -	Detect a large green mass moving from the top
+  -  Detect a large green mass moving from the top
   -	Create arrays of green colors for green mask.
   -	Create a numpy array for the RGB high and low values
   -	MS Paint worked well to pick the green RGB values from images in the video streams.  
@@ -355,14 +355,22 @@ An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://one
 
 ### Resources
 
-Research
+Research:
+
 https://chriscarey.com/blog/2017/04/30/achieving-high-frame-rate-with-a-raspberry-pi-camera-system/comment-page-1/
+
 https://gregtinkers.wordpress.com/2016/03/25/car-speed-detector/
+
+https://www.pyimagesearch.com/start-here-learn-computer-vision-opencv/
+
 https://azure.microsoft.com/en-us/blog/how-to-use-azure-functions-with-iot-hub-message-routing/
+
 http://www.nightbluefruit.com/blog/2013/02/how-to-use-git-to-maintain-code-between-2-computers/
+
 https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py_lucas_kanade/py_lucas_kanade.html#lucas-kanade
 
-Scheduling
+Scheduling:
+
 https://www.raspberrypi.org/documentation/linux/usage/cron.md
 sudo apt-get install gnome-schedule
 
