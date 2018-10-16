@@ -207,9 +207,9 @@ Functions that I used often were:
        -	If red band in cropped pin location exceeds threshold value, sum pin count + (2 exp (9-pin location index))
   -	LightLeds()
        -	Convert pin count to a binary string X
-       -	Loop through X and GPIO pin array index [X]
+       -	Loop through X and GPIO pin array index[X]
        -        If 1, turn GPIO to HIGH
-       -	If 0, turn GPIO to LOW  
+       -	If 0, turn GPIO to LOW 
 #### _Find Standing Pins -  findPins()_
    -	Create arrays of red colors for  a red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
