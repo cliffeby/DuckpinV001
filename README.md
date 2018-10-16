@@ -23,7 +23,7 @@ Regular duckpin bowling is popular in the northeastern and mid-Atlantic United S
 
 The Sherman automatic pinsetter was developed in 1953 and the company ceased operation in 1973.  Existing operators are forced to cannibalize pinsetter parts from the bowling houses that close, often buying the machines and putting them into storage to use for spare parts. The lack of new pinsetters is a significant cause of the decline of duckpin bowling.
 #### _CCC Duckpins_ #
-There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by [Ken Palmer](http://www.dpbatour.com/profile_palmer-kenny.htm) , its bowling professional, for the past 2x years.  A good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
+There are four clubs in the Washington-Metro area that have duckpin facilities on the premises – Congressional, Chevy Chase, Kenwood, and Columbia.  Congressional’ s pinsetters were installed in 1961 and have been maintained by [Ken Palmer](http://www.dpbatour.com/profile_palmer-kenny.htm) , its bowling professional, for the past 30 years.  His experience and a good inventory of spare parts is the key to its continued reliable operation. CCC does not have an auto-scorekeeper.  Prior to 1961, the pins were manually reset by golf caddies.  At CCC, duckpin bowling is a winter sport.
 ### _Player/User Requests_
 In addition to lighting the Lucite numbers, there was a request to indicate the number of balls used during each frame.  If the ball can be reliably detected, a seven-segment LED display can be controlled by the RPI to indicate state.
 
@@ -38,9 +38,9 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
 + LED bulbs and sockets
   - Five-watt equivalent, LED T10 wedge bulbs and connectors
   - DWVO Superbright 1156 LED Light Bulb
-+ 1156 BA15s LED Light Bulb Socket Holder
+  - 1156 BA15s LED Light Bulb Socket Holder
 + SainSmart 8 and 4-Channel Relay Modules
-+ 5” 7-segment LED for ball counts
++ 5” 7-segment LED for ball counts 230 ohm resistors
 
 #### _Software_ #
 + Raspbian GNU/Linux 8 (Jessie)
@@ -88,7 +88,7 @@ OpenCV was next and early efforts were to grab a frame from a video stream, anal
 
 Equally difficult for me was version control and keeping everything synched.  Discipline with git and GitHub was always lacking but I tried to make it work.  With three local repos (desktop, RPI at the lane, and RPI at home) and the GitHub remote, I used Appendix B to keep synched.
 
-Along the way, I added the ability to use Remote Desktop and SSH from my desktop to use the RPI or access the RPI’s SDCard storage.  The only drawback is that neither remote process provides direct camera images on the remote desktop.  As shown here, OpenCV using Remote Desktop and the waitKey command to break the loop will generate an image on the remote.
+Along the way, I added the ability to use Remote Desktop and SSH from my desktop to use the RPI or access the RPI’s SDCard storage.  The only drawback is that neither remote process provides direct camera images on the remote desktop.  As shown here, OpenCV, using Remote Desktop and the waitKey command to break the loop, will generate an image on the remote.
 
 ```Python
 import cv2
@@ -115,9 +115,9 @@ I made a 4 x 6 x 12” wooden channel to mount the RPI, camera and relay modules
 
 Reflectors for the bulbs to light the Lucite numbers were long since destroyed and unavailable.  Using a 4” and 2 3/8” hole saw, I created ¼” plywood flanges and cut the tops off 12oz. soda cans for the reflectors. A washer was epoxied to the back of the can to accept the bulb holder.
  
-Two led bulb forms were considered.  A five-watt equivalent, led T10 wedge bulbs and connectors were inexpensive and produced subtle light.  The 15-watt equivalent, led 1156 base, also inexpensive, but was overpowering and washed out the Lucite number.  Both bulbs offered various colors if desired.  Beware, led bulbs have polarity, and the T10 wedge is interchangeable.  No harm if in backwards, it just doesn’t light.
+Two led bulb forms were considered.  A five-watt equivalent, LED T10 wedge bulbs and connectors were inexpensive and produced subtle light.  The 15-watt equivalent, LED 1156 base, also inexpensive, but was overpowering and washed out the Lucite number.  Both bulbs offered various colors if desired.  Beware, led bulbs have polarity, and the T10 wedge is interchangeable.  No harm if in backwards, it just doesn’t light.
 
-Last, a 12-pin connector was considered for ease in removing the RPI and relays from the 10 led bulbs.  Making the 20+ crimps seemed tedious and the connector remains on the TODO list.
+Last, a 12-pin connector was considered for ease in removing the RPI and relays from the 10 led bulbs.  Making the 20+ crimps seemed tedious and use of the connector remains on the TODO list.
 ![Caption image](https://user-images.githubusercontent.com/1431998/46451115-af812900-c762-11e8-9fbe-6c0c9d611e0a.png)
 ### _Software Design_
 Duckpin bowling is unique in that the player is allowed three balls in each frame to knock down the 10 pins.  Unlike 10-pin bowling where the pinsetter is automatic after each thrown ball, duckpins requires the user to clear any deadwood that may remain on the alley.  Clearing deadwood is optional as it is often not needed. Also, manually initiated in duckpins is the reset all 10 pins.
@@ -140,7 +140,7 @@ To detect presence of a specific pin, individual pin pattern matching was attemp
 
 ![image](https://user-images.githubusercontent.com/1431998/46577920-b9ec2e80-c9bf-11e8-98c2-6cab259b27a5.png) 
 
-Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Frames are often "cropped" to improve speed and edge conditions.
+Best matches were obtained when a red filter was applied to the pin tops.  If the red band was detected within the cropped image top, the pin was standing.  Efficiency of both motion detection and pin presence are improved if the image is limited in size.  Pin frames and arm frames are "cropped" to improve speed and edge conditions.
 
 Since pins are either up or down, the 10-pin configuration was a value between 0 and 1023 (10 exp 2 = 1024).  Pin 1 (index [0]) has an up value of 512, Pin 2 (index [1]) an up value of 256… and Pin 10 (index [9]) an up value of 1.  The pin configuration number is simply the sum of the ten values or the binary string ranging from b1111111111 equal to 1023 and b0000000000 = 0.
 
@@ -175,14 +175,14 @@ My initial exploration of Python on an RPI showed the value of functions and the
    -	Rotation
    -	Brightness
 -	GPIO pins
-  -	Tell RPI which GPIO pins are active
-  -	Assign duckpin pin value (1-10) to a GPIO pin value
+   -	Tell RPI which GPIO pins are active
+   -	Assign duckpin pin value (1-10) to a GPIO pin value
 -	Crop Ranges to minimize the amount of processing for each image.  
-  - 	For each resolution
-     -	Pin locations
-     -	Reset arm and deadwood motion detection locations
+   - 	For each resolution
+      -	Pin locations
+      -	Reset arm and deadwood motion detection locations
 -	Ball monitoring
-  -	I used Paint and Excel to create crop ranges.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  If you change framerate or resolution, your crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you move the camera and want to try different resolutions. 
+   -	I used Paint and Excel to create crop ranges.  Framerate and resolution are linked by the piCamera module.  Crop ranges are the pixel locations in format [x1,y1,x2,y2] where x and y are integers.  When you change framerate or resolution, the crop ranges will need to reflect the new pixel dimensions.  Using an image at the desired resolution, I used the pixel location in Paint and entered it into an Excel spreadsheet that created my Python crop string.  A big time saver when you frequently move the camera and want to try different resolutions. 
 -	Imports
    -	IoT credentials: Keep access credentials out of the repo
     -	Import modules for
@@ -194,14 +194,14 @@ My initial exploration of Python on an RPI showed the value of functions and the
       -	piCamera
       -	IoT functions
     -	Functions that are infrequently used can be imported and not directly listed in the main code.
-    -	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.  The ability to turn these functions off and on is helpful.  
+    -	Helper and debug functions – Writing code for motion detection is often challenging because no two images are the same.  The video stream is unpredictable and it’s often unclear what happened during image processing.  Viewing the video and/or images processed in real time or saving to file slows processing considerably.  The ability to turn these functions off and on is helpful.  Also, the camera and video code bases were challenging to keep coordinated.  The camera stream and video-file stream use different piCamera and OpenCV functions to process the video images.
 
 Functions that I used often were:
 -	Capture a number(X) of images at a certain time or frame count(Y)  
 -	Capture a video stream for (X) seconds at a certain time or frame count (Y)  
--	Show current image being processed  
-    *	Full image with crop locations/coordinates
-    *	Cropped image with annotations for xy corners
+-	Show current image being processed
+   -	Full image with crop locations/coordinates
+   -	Cropped image with annotations for xy corners
 -	Pin Count and lighting leds – Two simple functions
     -	pinCount
        -	If red band in cropped pin location exceeds threshold value, sum pin count + (2 exp (9-pin location index))
@@ -211,7 +211,7 @@ Functions that I used often were:
        -        If 1, turn GPIO to HIGH
        -	If 0, turn GPIO to LOW  
 #### _Find Standing Pins -  findPins()_
-   -	Create arrays of red colors for red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
+   -	Create arrays of red colors for  a red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
    -	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
@@ -226,17 +226,17 @@ Functions that I used often were:
 #### _Pinsetter Deadwood() and Reset()_
 A deadwood cycle starts by lifting the standing pins, sweeping an arm to clear the deadwood, and replacing the standing pins.  The reset cycle sweeps an arm to clear all pins and then places a new set of 10 pins.
 -	Deadwood()
-  -  Detect a large green mass moving from the top
-  -	Create arrays of green colors for green mask.
-  -	Create a numpy array for the RGB high and low values
-  -	MS Paint worked well to pick the green RGB values from images in the video streams.  
-  -	Create a green mask using the cv2.inRange function
-  -	Apply the mask to the video stream image using cv2.bitwise_and
-  -	Measure the color level in the range:
-  -	If green is present:
+   -  Detect a large green mass moving from the top
+   -	Create arrays of green colors for green mask.
+   -	Create a numpy array for the RGB high and low values
+   -	MS Paint worked well to pick the green RGB values from images in the video streams.  
+   -	Create a green mask using the cv2.inRange function
+   -	Apply the mask to the video stream image using cv2.bitwise_and
+   -	Measure the color level in the range:
+   -	If green is present:
        - Set DeadwoodPresentFlag
        - Return True
-  -  Else:
+   -  Else:
         - Return False
 -	Reset()
    -	Arm movement, prior to the green pinsetter indicates a Reset.
@@ -273,10 +273,10 @@ This function can be called on any change in pin configuration.  Initially, the 
           -	A few alternatives–
              -	RPI processing:
                -	Save ball xy data
-               -	Get next frame as quickly as possible.  [This is an important performance issue.  Other processes can wait while we get as much ball motion as possible.]
+               -	Get next frame as quickly as possible.  [Other processes can wait while we get as much ball motion as possible.]
 	     -	Use RPI buffer and send it via IoT to blob storage
 	        - Process video stream off line
-                   - Azure function, VM, or local computer to process video.
+                   - Azure function, VM, or local computer to process video
                 -  Process video stream during low CPU usage (can this be detected or is threasing an option?)
      -	If no object found:
 	-  Check for a pinsetter Reset and process
