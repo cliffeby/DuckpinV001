@@ -347,7 +347,7 @@ The text below is output from the post processing effort this single video.  The
 ![image](https://user-images.githubusercontent.com/1431998/46447210-91113280-c74e-11e8-8108-1a7fa60ebb48.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447214-966e7d00-c74e-11e8-88c9-55309c845ebe.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447220-9b333100-c74e-11e8-9a6c-e841205d0d31.png)
-|[image](https://user-images.githubusercontent.com/1431998/47260525-46e8ba80-d48b-11e8-94be-ecd0753dfb12.jpg)
+![image](https://user-images.githubusercontent.com/1431998/47260525-46e8ba80-d48b-11e8-94be-ecd0753dfb12.jpg)
  
 Blob storage content can be viewed and downloaded directly in the Azure Portal; Table data cannot.  I find that Azure Storage Explorer is the best tool for viewing, editing or downloading bolbs and tables.
 ![image](https://user-images.githubusercontent.com/1431998/46670789-1f4b4580-cba1-11e8-9e96-cec890f5df40.png)
