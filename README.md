@@ -3,14 +3,14 @@
 ### _About Me_
 I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a crtl-c/crlt-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Duckpins and [Roch](https://cliffeby.github.io/RochV001a/) app, I will document some of the "not so sample" issues and questions that arise.   
 
-This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document will be updated as I learn more about the MEAN Stack, Python and OpenCV.
+This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document and other blogs will be updated as I learn more about the MEAN Stack, Python and OpenCV.
  
  Cliff Eby - 2018
 
 ### _Preamble_
 As a hobbyist with a life-long interest in what makes things work, I look for projects that are more than demonstrations of “cool” technology.  For years, I wanted an Arduino or Raspberry Pi (RPI) but avoided the “technical investment” because I wanted to do more than turn on LEDs.  Similarly, with IOT I wanted to stream and store more than local weather data.    
 ### _Project Introduction_ 
-The pinsetters at Congressional Country Club are ancient.  They are controlled by mechanical relays in a Gold-Ruberg artform.  When I bring guests to the Club, the pinsetters are a must stop and I can spend at least 15 minutes watching them perform.  Each lane headboard shown below has a display of pin numbers, but they are not and were never functional.  Could I use a computer to light the numbers?  Could I track the ball’s location, angle, and speed and measure the result?  Did I find a use for a RPI and IOT in one project?
+The pinsetters at Congressional Country Club are as old as me and were designed well before the first integrated circuit demonstration.  They are controlled by mechanical relays in a Gold-Ruberg artform.  When I bring guests to the Club, the pinsetters are a must stop and I can spend at least 15 minutes watching them perform.  Each lane headboard shown below has a display of pin numbers, but they are not and were never functional.  Could I use a computer to light the numbers?  Could I track the ball’s location, angle, and speed and measure the result?  Did I find a use for a RPI and IOT in one project?  And, could I do it all for less than $100 per lane?
 
 <img src= "https://user-images.githubusercontent.com/1431998/46451141-c32c8f80-c762-11e8-9c70-25089f44a9af.png" width = "430px" align = "left">
 <img src = "https://user-images.githubusercontent.com/1431998/46451161-cfb0e800-c762-11e8-844d-49aa993a9928.png" width="430px" align = "right"> 
@@ -64,7 +64,7 @@ Spoiler alert- The RPI can not reliably detect a ball in multiple frames and oft
     - TBD
 
 ### _The RPI image_
-Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing the RPI in a case) and a backup would have saved a lot of time.
+Setting up my image on the RPI takes about four hours.  OpenCV, IOTHub, and VSCode are large installs and sometimes need a second try.  It’s generally best to minimize memory usage (close other windows and multitask on another computer).  Once completed, back it up – another lengthy process – but well worth it.  I cracked my SD Card (make sure that you take the card out of its slot before installing or removing the RPI in a case) and a backup would have saved a lot of time.
 
 I try to keep my image up to date using command $ sudo apt-get update && sudo apt-get upgrade -y.  
 
