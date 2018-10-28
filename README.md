@@ -1,7 +1,7 @@
 # Duckpins -Project Documentation
 
 ### _About Me_
-I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a crtl-c/crlt-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Duckpins and [Roch](https://cliffeby.github.io/RochV001a/) app, I will document some of the "not so sample" issues and questions that arise.   
+I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a ctrl-c/ctrl-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Duckpins and [Roch](https://cliffeby.github.io/RochV001a/) app, I will document some of the "not so sample" issues and questions that arise.   
 
 This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document and other blogs will be updated as I learn more about the MEAN Stack, Python and OpenCV.
  
