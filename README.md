@@ -27,7 +27,7 @@ There are four clubs in the Washington-Metro area that have duckpin facilities o
 ### _Player/User Requests_
 In addition to lighting the Lucite numbers, there was a request to indicate the number of balls used during each frame.  If the ball can be reliably detected, a seven-segment LED display can be controlled by the RPI to indicate state.
 
-User interest or requirements for the ball-pin interaction data is not known.  There is no known __Moneyball__ analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV format in the Cloud is likely a good starting point.
+User interest or requirements for the ball-pin interaction data is not known.  There is no known __Moneyball__ analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV table format stored in the Cloud is likely a good starting point.
 
 Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
 ### _Tools_
