@@ -355,6 +355,11 @@ Blob storage content can be viewed and downloaded directly in the Azure Portal; 
 ### _Analysis_
 An Excel spreadsheet of 40+ processed videos can be found at [Excel](https://onedrive.live.com/view.aspx?cid=bf4510a468a1040b&page=view&resid=BF4510A468A1040B!294159&parId=BF4510A468A1040B!285345&authkey=!AACAWwJ2-uoTYLw&app=Excel).  It is a very simple tool to sort and filter the data for initial understanding of what may be possible with the data.  I will provide access to the table data for any interested party.
 
+### _Future Considerations_
+Deploying this to eight lanes will challenge my current knowledge of dev-ops.  Since the camera will have a slightly different location on each lane, the crop ranges for the pins, ball, arm and setter will vary in each lane.  Since I want one code base, I plan to pass an argument at startup to specify the lane.  I also want updates to be automated and not require me to push software changes to each lane.  Can and should I schedule weekly operating systems updates?
+
+What level of hardware maintenance will be required?  The number of IoT devices is increasing very rapidly.  I expect that in the very near future, we will be surrounded by hundreds at all times during the day and night.  But, I doubt that any will be Duckpin capable and will need extensive customization. There may be interest among a younger student or developer, but hardware and software maintenance is a big consideration if expanded beyond the prototype. 
+
 ### _Resources_
 
 Research:
