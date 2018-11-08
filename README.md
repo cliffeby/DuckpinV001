@@ -166,6 +166,7 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 2.	Much of the OpenCV sample code offered in videos or blogs on fast moving objects uses video post processing.
 3.	Placing the IO processing of the video frame in a separate thread did not seem to help real-time processing.  It appears that the piCamera buffering feature uses threading.  Tools and knowledge on improving OpenCV throughput are ongoing.  A 2015 blog by Adrian Rosebrock offers a utility to easily separate the piCamera IO thread.
 4.	Where video was saved in a buffer during processing for pin and ball recognition, the ball was present in at least three to five frames.  That same code was unable to reliably capture a single frame with a ball in real time.  This reinforces the conclusion that by the time the code finished other calculations in the loop, the frames which contained the ball were no longer present.
+5.	Multithreading did not seem to help in detecting the ball.  Multiprocessing, using all four RPI cores is currently being investigated.
 
 ### _Pseudocode and why_
 #### _Setup_
@@ -331,7 +332,7 @@ I was unable to get framerates high enough to capture two clear observations of 
 
 If the piCamera was moved, calibration of cropped areas was a challenge.  Seems like an AI solution could auto correct the position, but it is outside the initial scope.
 
-I expected that JSON stroed in blob storage could be easily downloaded and analyzed by PowerBI or Power Query.  I didn't find either to be straight forward.
+I expected that JSON stored in blob storage could be easily downloaded and analyzed by PowerBI or Power Query.  I didn't find either to be straight forward.
 ### _Results_
 Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
 
