@@ -342,7 +342,7 @@ The images below show the contours of the ball detected as it moves toward the p
 
 The text below is output from the post processing effort this single video.  The centroid of the largest contour in each frame is captured as an xy pair.  This JSON formatted data is entered in an Azure table.
 
-`>Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', >'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'}` 
+`>Successfully inserted the new entity into table - C:/DownloadsDP/Lane4Free\dp _1023_0_.h264 pindata {'PartitionKey': 'Lane 4', 'RowKey': '20180927643118', 'beginingPinCount': 1023, 'endingPinCount': 0, 'x0': '634', 'y0': '829', 'x1': '637', 'y1': '702', >'x2': '641', 'y2': '596', 'x3': '642', 'y3': '510', 'x4': '576', 'y4': '306'}` 
 
 ![image](https://user-images.githubusercontent.com/1431998/46447199-88206100-c74e-11e8-8f5a-f60b725ebf02.png)
 ![image](https://user-images.githubusercontent.com/1431998/46447210-91113280-c74e-11e8-8108-1a7fa60ebb48.png)
