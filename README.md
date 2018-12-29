@@ -6,6 +6,8 @@ I am a retired civil engineer studying software development as an avocation.  I'
 This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document and other blogs will be updated as I learn more about the Azure, VMs, Python and OpenCV.
  
  Cliff Eby - 2018
+ 
+ UPDATE - A second blog is avalable at [Duckpin PhaseII](https://cliffeby.github.io/DuckpinV002/).  It describes the use of Azure Machine Learning Studio and Jupyter Notebooks for analytics and other improvements to the project.
 
 ### _Preamble_
 As a hobbyist with a life-long interest in what makes things work, I look for projects that are more than demonstrations of “cool” technology.  For years, I wanted an Arduino or Raspberry Pi (RPI) but avoided the “technical investment” because I wanted to do more than turn on LEDs.  Similarly, with IOT I wanted to stream and store more than local weather data.    
