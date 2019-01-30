@@ -302,6 +302,22 @@ This function can be called on any change in pin configuration.  Initially, the 
 ### _In Production_
 #### _Headless:_
 In production, the RPI is headless and needs to auto start/boot the python program.  There are several ways to do this but after reading [Five Ways To Run a Program On Your Raspberry Pi At Startup](https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/) , I chose to use systemd files.  If you use absolute paths to locate your files, the technique works well.
+
+Here's the startup file that I placed in the /lib/systemd/system folder.  
+```
+#Startup
+[Unit]
+Description=My Service to start Duckpins
+After=multi-user.target
+[Service]
+Type=idle
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/Shared/Duckpin2/DPBoot.py
+[Install]
+WantedBy=multi-user.target
+```
+
+
 The commands:
 ```
 sudo systemctl daemon-reload
@@ -311,7 +327,8 @@ sudo systemctl status sample.service
 sudo systemctl stop sample.service
 and ps aux 
 ```
-provide the tools to debug startup issues.
+provide the tools to debug startup issues.  Make sure that you use the command to stop the sample.service before running a python program that uses camera or other resources used by the sample.service.
+
 #### _SD card or RAM disk:_
 Several blogs referenced a limited life of SD cards that are in a write, read, delete and repeat loop. [Extending the life of the SD card](https://www.makeuseof.com/tag/extend-life-raspberry-pis-sd-card/) shows how to use ram storage for these temporary files.  
 ```
