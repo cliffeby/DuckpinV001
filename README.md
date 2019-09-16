@@ -406,7 +406,8 @@ Scheduling:
 a.	Most SDCards purchased with a RPI come with Raspbian installed.  Suggest that you update it first using the apt-get command above
 b.	To install Remote Desktop - $ sudo apt-get install xrdp
 c.	To get the RPI ip address - $ ifconfig
-d.	To map a drive for using Remote Desktop Connection
+d.	To get RPI ip address when headless.  Command prompt from another computer on the local network - ssh pi@raspberrypi.local
+e.	To map a drive for using Remote Desktop Connection
 i.	$ sudo apt-get install samba samba-common-bin
 ii.	edit smb.config per https://www.youtube.com/watch?v=4P5nEH9zGDI 
 ```
