@@ -515,3 +515,7 @@ vi.	Supporting Links
   -	Git rm -r “filename”
   --	Git commit -m “deleted file”
   -	Git push
+	
+	## Appendix C -  Desktop setup for postprocessing
+1.	Use Anaconda to install Python 3 on desktop
+2.	Install openCV - pip install opencv-python
