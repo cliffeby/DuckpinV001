@@ -519,3 +519,10 @@ vi.	Supporting Links
 	## Appendix C -  Desktop setup for postprocessing
 1.	Use Anaconda to install Python 3 on desktop
 2.	Install openCV - pip install opencv-python
+3. 	I use the Windows 10 task scheduler to run every night.  This make sure that blob storage is minimized and the timestamp in the table is the same as bowled.
+4.	If you have trouble with the task scheduler, use a .bat file with powershell and you executable string follwed by a pause.
+```
+powershell C:/Users/Admin/Anaconda3/python.exe c:/Users/Admin/OneDrive/pyProjects/Duckpin2/blobtoCount.py
+pause
+```
+5. 	In my case, numpy needed to be updated.  Interestingly the script didn't fail when run directly in VSCode.
