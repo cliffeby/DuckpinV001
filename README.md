@@ -3,7 +3,7 @@
 ### _About Me_
 I am a retired civil engineer studying software development as an avocation.  I've found the software development "community" unparallelled in support for all levels of users. When you hit a roadblock, video tutorials, blogs, Stack Overflow, etc. provide a wealth of content.  For me, a quick search, a ctrl-c/ctrl-v and my problem is solved.  No other profession offers more to it colleagues.  However getting past the HW or sample app has often been a struggle for me.  As I navigate that world with my Duckpins and [Roch](https://cliffeby.github.io/RochV001a/) app, I will document some of the "not so sample" issues and questions that arise.   
 
-This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document and other blogs will be updated as I learn more about the Azure, VMs, Python and OpenCV.
+This GitHub page is one of several  blogs on my efforts to get beyond HW.  I expect that the document and other blogs will be updated as I learn more about the Azure, VMs, Python and OpenCV.  I also post at [DEV](https://dev.to/search?q=cliff%20eby)
  
  Cliff Eby - October 2018
  
@@ -519,7 +519,7 @@ vi.	Supporting Links
 	## Appendix C -  Desktop setup for postprocessing
 1.	Use Anaconda to install Python 3 on desktop
 2.	Install openCV - pip install opencv-python
-3. 	I use the Windows 10 task scheduler to run every night.  This make sure that blob storage is minimized and the timestamp in the table is the same as bowled.
+3. 	I use the Windows 10 task scheduler to run every night.  This makes sure that blob storage is minimized and the timestamp in the table is the same day as when bowled.
 4.	If you have trouble with the task scheduler, use a .bat file with powershell and you executable string follwed by a pause.
 ```
 powershell C:/Users/Admin/Anaconda3/python.exe c:/Users/Admin/OneDrive/pyProjects/Duckpin2/blobtoCount.py
