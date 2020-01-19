@@ -151,7 +151,7 @@ There are several triggers that can be used to recognize a changed state.  Since
 #### _Final concept_
 The change in pin count is the primary trigger used for changing the state of the led bulbs and for sending data via IoT to blob storage.  A 1.5 second delay timer is used to capture the before and after state of the pins.
 ### _Early Considerations and Limitations_ #
-V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 framerate.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.  
+V2 of the piCamera module has seven default resolution/framerate modes and specific framerates and resolutions can be requested.  Early on, I found some sample code for motion detection which used a 1440 x 912 resolution.  This resolution seemed to work well in capturing details of the ball, pins, and pinsetter.  Unfortunately, the piCamera at this resolution is not capable of reliably recognizing the ball as it approaches the pins.  
 
 | No	| Resolution	| Aspect Ratio |	Framerate |	Video	| Image |	FoV |	Binning |
 --- | --- |--- | --- | --- | --- | --- | ---
