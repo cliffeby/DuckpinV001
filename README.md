@@ -9,6 +9,8 @@ This GitHub page is one of several  blogs on my efforts to get beyond HW.  I exp
  
 UPDATE December 2018 - A second blog is avalable at [Duckpin Phase II](https://cliffeby.github.io/DuckpinV002/).  It describes the use of Azure Machine Learning Studio and Jupyter Notebooks for analytics and other improvements to the project.
 
+UPDATE January 2020 - A third blog is avalable at [Duckpin Phase III](https://cliffeby.github.io/DuckpinV003/).  It is strictly data analysis and analyzes over 10,000 rolls.
+
 ### _Preamble_
 As a hobbyist with a life-long interest in what makes things work, I look for projects that are more than demonstrations of “cool” technology.  For years, I wanted an Arduino or Raspberry Pi (RPI) but avoided the “technical investment” because I wanted to do more than turn on LEDs.  Similarly, with IOT I wanted to stream and store more than local weather data.    
 ### _Project Introduction_ 
