@@ -33,7 +33,7 @@ In addition to lighting the Lucite numbers, there was a request to indicate the 
 
 User interest or requirements for the ball-pin interaction data is not known.  There is no known __Moneyball__ analysis of duckpins.  It is hoped that a university may have interest in the one-of-a-kind dataset. If this data can be captured, JSON or CSV table format stored in the Cloud is likely a good starting point.
 
-Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire is being investigated.
+Spoiler alert- The RPI can not reliably detect a ball in multiple frames and often misses gutter balls.  It can capture and send a video file with multiple ball frames for post-processing.  For the ball counter, a laser tripwire was being investigated, but unreliable.
 ### _Tools_
 ####  _Hardware_ #
 + Raspberry Pi Model 3 B ARMv7.1 with 1G RAM 32G MicroSD - $35
@@ -287,6 +287,9 @@ This function can be called on any change in pin configuration.  Initially, the 
 	-  Check for a pinsetter Reset and process
         -  Check for a pinsetter Deadwood and process
         -  findPins()
+
+#### _Easter Egg_
+When a strike is thrown, flash the LED bulb and seven-segment counter multiple times.  
 	
 #### _Post processing_
 - 	Get video files from Azure blob storage
@@ -355,7 +358,7 @@ If the piCamera was moved, calibration of cropped areas was a challenge.  Seems 
 
 I expected that JSON stored in blob storage could be easily downloaded and analyzed by PowerBI or Power Query.  I didn't find either to be straight forward.
 ### _Results_
-Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces four to five frames of video and centroid calculations are repeatable.
+Except for ball capture and counting, the project worked as expected.  Up pins are reliable detected, and pin patterns are quickly displayed.  If a pin pattern changes, 2M (about two seconds) of video are sent via IoT to blob storage.  Post processing generally produces two to five frames of ball video and centroid calculations are repeatable.
 
 The images below show the contours of the ball detected as it moves toward the pins.  The fifth image shows the centroids of multiple balls connected by a line.  The video that produced these contours can be viewed by clicking the image below.
 
@@ -380,7 +383,7 @@ An Excel spreadsheet of 600+ processed videos can be found at [Excel](https://on
 ### _Future Considerations_
 Deploying this to eight lanes will challenge my current knowledge of dev-ops.  Since the camera will have a slightly different location on each lane, the crop ranges for the pins, ball, arm and setter will vary in each lane.  Since I want one code base, I plan to pass an argument at startup to specify the lane.  I also want updates to be automated and not require me to push software changes to each lane.  Can and should I schedule weekly operating systems updates?
 
-What level of hardware maintenance will be required?  The number of IoT devices is increasing very rapidly.  I expect that in the very near future, we will be surrounded by hundreds at all times during the day and night.  But, I doubt that any will be Duckpin capable and will need extensive customization. There may be interest among a younger student or developer, but hardware and software maintenance is a big consideration if expanded beyond the prototype. 
+What level of hardware maintenance will be required?  The number of IoT devices is increasing very rapidly.  I expect that in the very near future, we will be surrounded by hundreds at all times during the day and night.  But, I doubt that any will be Duckpin capable and will need extensive customization. There may be interest among a younger student or developer, but hardware and software maintenance is a big consideration if expanded beyond the prototype. UPDATE - After two plus years of operation and the caputure of more than 10,000 rolls, reliability has been remarkably good.  I had two jumper wire female-to-male connections fail, likely due to use of low-quality jumpers.  LED bubls have also failed gradually (The five LED panels on each bulb fail gradually reducing the emitted light.)  Long-lasting LEDs, seems to be a myth. 
 
 ### _Resources_
 
