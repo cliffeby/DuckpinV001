@@ -170,7 +170,7 @@ Use of lower resolution, threading, and buffering with post-processing were trie
 2.	Much of the OpenCV sample code offered in videos or blogs on fast moving objects uses video post processing.
 3.	Placing the IO processing of the video frame in a separate thread did not seem to help real-time processing.  It appears that the piCamera buffering feature uses threading.  Tools and knowledge on improving OpenCV throughput are ongoing.  A 2015 blog by Adrian Rosebrock offers a utility to easily separate the piCamera IO thread.
 4.	Where video was saved in a buffer during processing for pin and ball recognition, the ball was present in at least three to five frames.  That same code was unable to reliably capture a single frame with a ball in real time.  This reinforces the conclusion that by the time the code finished other calculations in the loop, the frames which contained the ball were no longer present.
-5.	Multithreading did not seem to help in detecting the ball.  Multiprocessing, using all four RPI cores is currently being investigated.
+5.	Multithreading did not seem to help in detecting the ball.  Multiprocessing, using all four RPI cores did not improve ball capture.
 
 ### _Pseudocode and why_
 #### _Setup_
@@ -216,7 +216,7 @@ Functions that I used often were:
        -        If 1, turn GPIO to HIGH
        -	If 0, turn GPIO to LOW 
 #### _Find Standing Pins -  findPins()_
-   -	Create arrays of red colors for  a red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
+   -	Create arrays of red colors for a red mask.  The red bands on the pins vary in color and intensity due to location, age and lighting
    -	Create a numpy array for the RGB high and low values
    -	MS Paint worked well to pick the red RGB values from images in the video streams.  Other than the red band, there is very little red in the pin image so the range can be very large.
 ![image](https://user-images.githubusercontent.com/1431998/46451126-bc058180-c762-11e8-8167-ce131c9106bd.png)
