@@ -106,7 +106,7 @@ Since my final installation was expected to be an RPI without a monitor or input
 
 Next was the use of GPIO pins on the RPI.  I started with the obligatory single blinking led on a breadboard powered by the RPI and quickly moved on connecting the GPIO pins to SainSmart 8 and 4-Channel Relay Modules.  Like my learning Python syntax and OpenCV, I created some simple programs to get feedback.  
 
-Finally, I turned to IoT to send a store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
+Finally, I turned to IoT to send and store data.  I started with AWS and struggled to load the Python instance on the RPI.  I can’t recall the installation issue, but once installed I simply could not set the required credentials.  Naming conventions in the tutorials seemed inconsistent, even with my background in writing several AWS lambda functions.  After many hours, I turned to Azure IoT for Python and it just worked.  I had a sample IoT client sending data to Azure and storing it in Blob Storage in less than an hour.
 
 So far, so good.  On to the design process.
 ### _Hardware Design_
