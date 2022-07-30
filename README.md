@@ -530,7 +530,7 @@ vi.	Supporting Links
 powershell C:/Users/Admin/Anaconda3/python.exe c:/Users/Admin/OneDrive/pyProjects/Duckpin2/blobtoCount.py
 pause
 ```
-5. 	In my case, numpy needed to be updated.  Then I received the error "Can't connect to HTTPS URL because the SSL." Chaning my Path corrected the problem.  Interestingly, the script didn't fail when run directly in VSCode.
+5. 	In my case, numpy needed to be updated.  Then I received the error "Can't connect to HTTPS URL because the SSL." Changing my Path corrected the problem.  Interestingly, the script didn't fail when run directly in VSCode.
 
 ```
 <path>\Anaconda3
