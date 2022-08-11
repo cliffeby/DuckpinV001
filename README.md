@@ -124,7 +124,7 @@ Two led bulb forms were considered.  A five-watt equivalent, LED T10 wedge bulbs
 Last, a 12-pin connector was considered for ease in removing the RPI and relays from the 10 led bulbs.  Making the 20+ crimps seemed tedious and use of the connector remains on the TODO list.
 ![Caption image](https://user-images.githubusercontent.com/1431998/46451115-af812900-c762-11e8-9fbe-6c0c9d611e0a.png)
 ### _Software Design_
-Duckpin bowling is unique in that the player is allowed three balls in each frame to knock down the 10 pins.  Unlike 10-pin bowling where the pinsetter is automatic after each thrown ball, duckpins requires the user to clear any deadwood that may remain on the alley.  Clearing deadwood is optional as it is often not needed. Also, manually initiated in duckpins is the reset all 10 pins.
+Duckpin bowling is unique in that the player is allowed three balls in each frame to knock down the 10 pins.  Unlike 10-pin bowling where the pinsetter is automatic after each thrown ball, duckpins requires the user to clear any deadwood that may remain on the alley.  Clearing deadwood is optional as it is often not needed. Also, manually initiated in duckpins is the reset for all 10 pins.
 
 The headboard that displays the Lucite pin numbers is about six feet from pin #1 and the camera is mounted on its back facing the pins. It is a perfect location to view the deadwood and reset arm, the pinsetter motion, the ball before hitting the pins, and the pins that remain standing.
 
