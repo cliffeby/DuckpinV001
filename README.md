@@ -543,6 +543,10 @@ pause
 [![VIDEO](https://i9.ytimg.com/vi_webp/NMsKs2rEfXg/mq2.webp?sqp=CMD807UG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGDcgZShlMA8=&rs=AOn4CLDhrYR7cRI66AJ0teB7hjr6EnXLsQ)](https://youtu.be/NMsKs2rEfXg)
 Sherman Duckpin Pinsetter at Congressional Country Club
 
-[![VIDEO of another Sherman Pinsetter](https://youtu.be/evjuygdaXfw?si=heajoKcYyKGjdhvF)
+[![VIDEO of another Sherman Pinsetter](https://github.com/user-attachments/assets/8483b672-d1c4-4253-967f-35e6a23a5a5f)](https://youtu.be/evjuygdaXfw?si=heajoKcYyKGjdhvF)
+
+
+![image](https://github.com/user-attachments/assets/8483b672-d1c4-4253-967f-35e6a23a5a5f)
+
 
 [![VIDEO](https://i.ytimg.com/vi/7fhVMdVYPBc/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG2CIACgA-KAgwIABABGHIgWSg5MA8=&rs=AOn4CLBIT6tYAQGH92sxCsmd654ymrWB5w)](https://youtu.be/7fhVMdVYPBc?list=TLPQMDgwODIwMjQEFeBZDFWsCg)
