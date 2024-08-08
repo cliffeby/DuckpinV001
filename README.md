@@ -541,5 +541,6 @@ pause
 ## Appendix D -  Pinsetters
 
 [![VIDEO](https://i9.ytimg.com/vi_webp/NMsKs2rEfXg/mq2.webp?sqp=CMD807UG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGDcgZShlMA8=&rs=AOn4CLDhrYR7cRI66AJ0teB7hjr6EnXLsQ)](https://youtu.be/NMsKs2rEfXg)
+Sherman Duckpin Pinsetter
 
-[![VIDEO](http://img.youtube.com/vi/8zUnTeoKMoY/0.jpg)](http://www.youtube.com/watch?v=8zUnTeoKMoY)
+[![VIDEO](http://img.youtube.com/vi/8zUnTeoKMoY/0.jpg)](https://youtu.be/b2IezzjCets?si=7dyyNxBlWmZt8IJt)
