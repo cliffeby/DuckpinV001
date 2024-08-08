@@ -539,5 +539,6 @@ pause
 ```
 
 ## Appendix D -  Pinsetters
-[![VIDEO]([https://i9.ytimg.com/vi_webp/NMsKs2rEfXg/mq2.webp?sqp=CJT607UG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGDcgZShlMA8=&rs=AOn4CLCXMxBm1Vqn4XXaFcWWp9AhpeQp5A](https://youtu.be/NMsKs2rEfXg)
+
+[![VIDEO]([(http://www.youtube.com/watch?v=8zUnTeoKMoY)](https://youtu.be/NMsKs2rEfXg)
 [![VIDEO](http://img.youtube.com/vi/8zUnTeoKMoY/0.jpg)](http://www.youtube.com/watch?v=8zUnTeoKMoY)
