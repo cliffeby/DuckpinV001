@@ -552,7 +552,7 @@ A video on YouTube of the Sherman Pinsetter.
 
 
 
-I was fortunate to get a backroom tour of the Candle Pinsetters at North Star Pizza in Wilmington, VT.  OwnerSteve Butler told us about a rebuild to solid state after a flood ruing the lanes and relays.  Quite different than the Duckpin setup.
+I was fortunate to get a backroom tour of the Candlepin Pinsetters at North Star Pizza in Wilmington, VT.  Owner Steve Butler told us about the rebuild to solid state after a flood ruined the lanes and relays.  Quite different than a duckpin setup.
 
 
 [![VIDEO](https://i.ytimg.com/vi/7fhVMdVYPBc/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG2CIACgA-KAgwIABABGHIgWSg5MA8=&rs=AOn4CLBIT6tYAQGH92sxCsmd654ymrWB5w)](https://youtu.be/7fhVMdVYPBc?list=TLPQMDgwODIwMjQEFeBZDFWsCg)
